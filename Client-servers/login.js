@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             try {
-                const response = await fetch('http://localhost:3000/api/users/login', {
+                const response = await fetch('https://finalbackend2099.azurewebsites.net/api/users/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
-        const response = await fetch(`http://localhost:3000/api/users/${userId}`, {
+        const response = await fetch(`https://finalbackend2099.azurewebsites.net/api/users/${userId}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const { fname, lname } = user;
 
             // Fetch profile picture as a binary stream
-            const imageResponse = await fetch(`http://localhost:3000/api/users/${userId}/profile-picture`, {
+            const imageResponse = await fetch(`https://finalbackend2099.azurewebsites.net/api/users/${userId}/profile-picture`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
