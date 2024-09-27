@@ -1,7 +1,7 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const User = require('../../Models/User'); // Ensure the User model is imported
-const Availability = require('../models/availability');
+import User from '../../Models/User'; // Ensure the User model is imported
+import Availability from '../models/availability';
 
 // Fetch all tutors with their availability
 router.get('/tutors', async (req, res) => {
@@ -13,4 +13,4 @@ router.get('/tutors', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
