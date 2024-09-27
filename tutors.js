@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 : './Icons/default-profile.png'; // Default picture
 
             tutorCard.innerHTML = `
-                <img src="${profilePicture}" alt="${tutor.firstName} ${tutor.lastName}">
+                <img src="${profilePicture}" alt="${tutor.fname} ${tutor.lname}">
                 <h2>${tutor.fname} ${tutor.lname}</h2>
                 <p>Available on:</p>
                 ${displayAvailability(tutor.availability)}
