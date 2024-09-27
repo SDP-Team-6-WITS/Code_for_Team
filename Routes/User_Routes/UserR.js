@@ -6,6 +6,7 @@ import {
   modifyUser,
   createUser,
   loginUser, 
+  getTutors
 } from '../../Controllers/User_Controller/UserC.js';
 import multer from 'multer';
 import User from '../../Models/User.js';
@@ -21,6 +22,16 @@ router.get('/', async (req, res) => {
     res.status(200).json(users); 
   } catch (error) {
     res.status(500).json({ message: 'Error fetching users', error: error.message });
+  }
+});
+
+//get all tutors
+router.get('/tutors', async (req, res) => {
+  try {
+    const tutors = await getTutors();
+    res.status(200).json(tutors);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching tutors', error: error.message });
   }
 });
 

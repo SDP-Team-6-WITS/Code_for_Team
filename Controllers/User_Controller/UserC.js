@@ -70,6 +70,14 @@ export const getAllUsers = async () => {
   }
 };
 
+export const getTutors = async () => {
+  try {
+    const tutors = await User.find({ role: 'tutor' });
+    return tutors;
+  } catch (error) {
+    throw new Error(`Error fetching tutors: ${error.message}`);
+  }
+};
 
 export const getUserById = async (id) => {
   try {
