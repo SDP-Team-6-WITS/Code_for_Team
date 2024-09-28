@@ -25,12 +25,22 @@ document.addEventListener('DOMContentLoaded', () => {
             tutorList.innerHTML = '';
             reviews.forEach(review => {
                 const reviewElement = document.createElement('div');
-                reviewElement.classList.add('review');
+                reviewElement.classList.add('review-card');
                 reviewElement.innerHTML = `
-                    <h3>Session no.${review.session}</h3>
+                    <h2>Session no.${review.session}</h2>
+                    <h3>${review.subject}</h3>
                     <p>${review.comment}</p>
-                    <p>Rating: ${review.rating}</p>
+                    <div class="stars"></div>
                 `;
+                const stars = document.createElement('div');
+                stars.classList.add('stars');
+                for(let i=0; i<review.rating; i++){
+                    stars.innerHTML += '<span class="star filled">&#9733;</span>';
+                    }
+                for(let i=review.rating; i<5; i++){
+                    stars.innerHTML += '<span class="star">&#9733;</span>';
+                }
+                reviewElement.appendChild(stars);
                 tutorList.appendChild(reviewElement);
             });
         }
