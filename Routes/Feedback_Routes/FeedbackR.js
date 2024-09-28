@@ -12,7 +12,7 @@ import { get } from 'mongoose';
 const router = express.Router();
 
 //Post feedback
-router.post('/feedback/submit', (request, context) => {
+router.post('/submit', (request, context) => {
     const feedback = request.body;
     //Put feedback in database
     createFeedback(feedback);
@@ -20,7 +20,7 @@ router.post('/feedback/submit', (request, context) => {
 });
 
 //Get a specific tutor's rating
-router.get('/feedback/rating/:id', (request, context) => {
+router.get('/rating/:id', (request, context) => {
     const id = request.params.id;
     //Get rating form database
     const rating = {"rating": 4};
@@ -28,7 +28,7 @@ router.get('/feedback/rating/:id', (request, context) => {
 });
 
 //Get feedback by tutor id
-router.get('/feedback/:tutorId', async (request, context) => {
+router.get('/:tutorId', async (request, context) => {
     const tutorId = request.params.tutorId;
     //Get feedback from database
     const feedback  = await getTutorFeedback(tutorId);
@@ -37,7 +37,7 @@ router.get('/feedback/:tutorId', async (request, context) => {
 
 
 //Get feedback of a session
-router.get('/feedback/session/:session', (request, context) => {
+router.get('/session/:session', (request, context) => {
     const session = request.params.session;
     //Get feedback from database
     const feedback = getFeedbackBySession(session);
@@ -45,7 +45,7 @@ router.get('/feedback/session/:session', (request, context) => {
 });
 
 //Update specific feedback
-router.put('/feedback/:id', (request, context) => {
+router.put('/:id', (request, context) => {
     const id = request.params.sessionId;
     const feedback = request.body;
     //Change feedback in the database
@@ -54,7 +54,7 @@ router.put('/feedback/:id', (request, context) => {
 });
 
 //Delete specific feedback
-router.delete('/feedback/:feedbackId', (request, context) => {
+router.delete('/:feedbackId', (request, context) => {
     feedbackId = request.params.feedbackId;
     //Delete feedback in the database
     const result = deleteFeedback(feedbackId);

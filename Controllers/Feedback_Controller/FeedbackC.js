@@ -12,7 +12,7 @@ export const createFeedback = async (payload) => {
 };
 
 //Get the feedback of a session
-export const getFeedackBySession = async (id) => {
+export const getFeedbackBySession = async (id) => {
     try {
         const feedback = await Feedback.find({session: id});
         if (!feedback) throw new Error('Feedback not found');
@@ -34,7 +34,7 @@ export const getTutorFeedback = async (id) => {
 };
 
 //Change Session Feedback
-export const changeFeedback = async (id, payload) => {
+export const updateFeedback = async (id, payload) => {
     try {
         const feedback = await Feedback.findById(id);
         if (!feedback) throw new Error('Feedback not found');
