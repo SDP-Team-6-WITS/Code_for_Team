@@ -30,58 +30,7 @@
                     <input type="text" placeholder="Search your upcoming sessions here">
                 </header>
                 <h1>Set Your Availability</h1>
-                <form class="availability-form" id="availabilityForm">
-                    <div class="day-availability">
-                        <label for="monday">Monday:</label>
-                        <input type="time" id="monday-start" name="monday-start" disabled>
-                        <span>to</span>
-                        <input type="time" id="monday-end" name="monday-end" disabled>
-                        <img src="https://img.icons8.com/ios-glyphs/24/000000/edit.png" alt="Edit" class="edit-icon" onclick="editTime('monday')">
-                    </div>
-                    <div class="day-availability">
-                        <label for="tuesday">Tuesday:</label>
-                        <input type="time" id="tuesday-start" name="tuesday-start">
-                        <span>to</span>
-                        <input type="time" id="tuesday-end" name="tuesday-end">
-                        <img src="https://img.icons8.com/ios-glyphs/24/000000/edit.png" alt="Edit" class="edit-icon" onclick="editTime('tuesday')">
-                    </div>
-                    <div class="day-availability">
-                        <label for="wednesday">Wednesday:</label>
-                        <input type="time" id="wednesday-start" name="wednesday-start">
-                        <span>to</span>
-                        <input type="time" id="wednesday-end" name="wednesday-end">
-                        <img src="https://img.icons8.com/ios-glyphs/24/000000/edit.png" alt="Edit" class="edit-icon" onclick="editTime('wednesday')">
-                    </div>
-                    <div class="day-availability">
-                        <label for="thursday">Thursday:</label>
-                        <input type="time" id="thursday-start" name="thursday-start">
-                        <span>to</span>
-                        <input type="time" id="thursday-end" name="thursday-end">
-                        <img src="https://img.icons8.com/ios-glyphs/24/000000/edit.png" alt="Edit" class="edit-icon" onclick="editTime('thursday')">
-                    </div>
-                    <div class="day-availability">
-                        <label for="friday">Friday:</label>
-                        <input type="time" id="friday-start" name="friday-start">
-                        <span>to</span>
-                        <input type="time" id="friday-end" name="friday-end">
-                        <img src="https://img.icons8.com/ios-glyphs/24/000000/edit.png" alt="Edit" class="edit-icon" onclick="editTime('friday')">
-                    </div>
-                    <div class="day-availability">
-                        <label for="saturday">Saturday:</label>
-                        <input type="time" id="saturday-start" name="saturday-start">
-                        <span>to</span>
-                        <input type="time" id="saturday-end" name="saturday-end">
-                        <img src="https://img.icons8.com/ios-glyphs/24/000000/edit.png" alt="Edit" class="edit-icon" onclick="editTime('saturday')">
-                    </div>
-                    <div class="day-availability">
-                        <label for="sunday">Sunday:</label>
-                        <input type="time" id="sunday-start" name="sunday-start">
-                        <span>to</span>
-                        <input type="time" id="sunday-end" name="sunday-end">
-                        <img src="https://img.icons8.com/ios-glyphs/24/000000/edit.png" alt="Edit" class="edit-icon" onclick="editTime('sunday')">
-                    </div>
-                    <button type="submit">Save Availability</button>
-                </form>
+                <section id="availability-List" class="availability-List"></section>
             </main>
         </div>
     </div>

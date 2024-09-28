@@ -4,21 +4,31 @@ const availabilitySchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    date: {
-        type: String,
-        enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-        required: true
-    },
-    slots: [{
-        start: {
-            type: String, // Time in HH:mm format
+    availability:[{
+        date: {
+            type: String,
+            enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
             required: true
         },
-        end: {
-            type: String, // Time in HH:mm format
-            required: true
-        }
-    }]
+        slots: [{
+            start: {
+                type: String, // Time in HH:mm format
+                required: true
+            },
+            end: {
+                type: String, // Time in HH:mm format
+                required: true
+            }
+        }]
+    }],
+    startDate: {
+        type: Date,
+        required: true
+    },
+    endDate: {
+        type: Date,
+        required: true
+    }
 });
 
 
