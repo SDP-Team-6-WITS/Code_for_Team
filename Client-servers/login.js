@@ -54,7 +54,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('userId', data.userId);
                     alert('Login successful!');
+                    if(data.role =='tutor'){
+                        window.location.href = './views/tutor_dashboard.html';
+                    }
+                    else{
+                        console.log(data);
                     window.location.href = './dashboard.html';
+                    }
                 } else {
                     const errorData = await response.json();
                     alert('Error logging in: ' + errorData.message);
