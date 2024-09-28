@@ -13,6 +13,10 @@ const FeedbackSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please enter your feedback"]
     },
+    subject: {
+        type: String,
+        required: [true, "Please specify the subject"],
+      },
     uploader: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
