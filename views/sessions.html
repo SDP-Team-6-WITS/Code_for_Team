@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="style.css">
+    <script src="./sessions.js"></script>
 </head>
 <body>
     <div class="container">
@@ -31,62 +32,14 @@
             </header>
             
             <section class="dashboard">
+                <h1>Pending sessions</h1>
+                <div class="session-list" id="pending-list"></div>
                 <h1>Upcoming sessions</h1>
-                    <div class="session highlighted">
-                        <div class="date">Aug, 20</div>
-                        <div class="info">
-                            <h3>Software Design</h3>
-                            <p>4:00 PM | Tutor: Beyonce Koenze</p>
-                        </div>
-                        <button class= "confirm-btn" onclick="confirmBooking(this)">Confirm</button>
-                        <button class="delete-btn" onclick="deleteBooking(this)">Delete</button>
-                    </div>
-                    <div class="session highlighted">
-                        <div class="date">Aug, 25</div>
-                        <div class="info">
-                            <h3>English</h3>
-                            <p>1:00 PM | Tutor: Sarah Hutson</p>
-                        </div>
-                        <button class= "confirm-btn" onclick="confirmBooking(this)">Confirm</button>
-                        <button class="delete-btn" onclick="deleteBooking(this)">Delete</button>
-                    </div>
-                    <div class="session highlighted">
-                        <div class="date">Aug, 25</div>
-                        <div class="info">
-                            <h3>English</h3>
-                            <p>1:00 PM | Tutor: Sarah Hutson</p>
-                        </div>
-                        <button class= "confirm-btn" onclick="confirmBooking(this)">Confirm</button>
-                        <button class="delete-btn" onclick="deleteBooking(this)">Delete</button>
-                    </div>
-                    <div class="session highlighted">
-                        <div class="date">Aug, 25</div>
-                        <div class="info">
-                            <h3>English</h3>
-                            <p>1:00 PM | Tutor: Sarah Hutson</p>
-                        </div>
-                        <button class= "confirm-btn" onclick="confirmBooking(this)">Confirm</button>
-                        <button class="delete-btn" onclick="deleteBooking(this)">Delete</button>
-                    </div>
-                    <div class="session highlighted">
-                        <div class="date">Aug, 25</div>
-                        <div class="info">
-                            <h3>English</h3>
-                            <p>1:00 PM | Tutor: Sarah Hutson</p>
-                        </div>
-                        <button class= "confirm-btn" onclick="confirmBooking(this)">Confirm</button>
-                        <button class="delete-btn" onclick="deleteBooking(this)">Delete</button>
-                    </div>
-                    <div class="session highlighted">
-                        <div class="date">Aug, 25</div>
-                        <div class="info">
-                            <h3>English</h3>
-                            <p>1:00 PM | Tutor: Sarah Hutson</p>
-                        </div>
-                        <button class= "confirm-btn" onclick="confirmBooking(this)">Confirm</button>
-                        <button class="delete-btn" onclick="deleteBooking(this)">Delete</button>
-                    </div>
-                </div>
+                <div class="session-list" id="session-list"></div>
+                <h1>Completed sessions</h1>
+                <div class="session-list" id="completed-list"></div>
+                <h1>Cancelled sessions</h1>
+                <div class="session-list" id="cancelled-list"></div>
             </section>
             
         </main>

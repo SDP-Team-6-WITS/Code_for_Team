@@ -119,3 +119,15 @@ export const deleteBookingById = async (id) => {
     throw new Error(`Error deleting booking: ${error.message}`);
   }
 };
+
+export const getBookingByTutor = async (id) => {
+  try {
+    const bookings = await Booking.find({tutor:id});
+    if (!bookings) {
+      throw new Error('Bookings not found');
+    }
+    return bookings;
+  } catch (error) {
+    throw new Error(`Error fetching booking: ${error.message}`);
+  }
+};
