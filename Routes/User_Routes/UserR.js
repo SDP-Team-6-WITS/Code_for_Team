@@ -92,7 +92,7 @@ router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   try {
     const { user, token } = await loginUser(email, password);
-    res.status(200).json({  userId: user._id, token });
+    res.status(200).json({  userId: user._id, token , role: user.role});
   } catch (error) {
     res.status(401).json({ message: 'Login failed', error: error.message });
   }
