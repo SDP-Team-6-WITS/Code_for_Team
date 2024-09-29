@@ -48,23 +48,6 @@
         </footer>
     </div>
 
-    <script>
-        function confirmBooking(button) {
-            const session = button.parentElement;
-            let confirmation = confirm("Are you sure you want to confirm this session?");
-            if (confirmation) {
-                session.style.backgroundColor = "#d4edda"; // Green color for confirmed sessions
-                button.disabled = true; // Disable the Confirm button
-                button.nextElementSibling.disabled = true; // Disable the Delete button
-            }
-        }
 
-        function deleteBooking(button) {
-            let confirmation = confirm("Are you sure you want to delete this session?");
-            if (confirmation) {
-                button.parentElement.remove(); // Remove the session entry
-            }
-        }
-    </script>
 </body>
 </html>

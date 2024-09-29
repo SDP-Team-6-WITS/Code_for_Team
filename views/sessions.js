@@ -30,10 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const sessionsElement = document.createElement('div');
                 sessionsElement.classList.add('session-highlighted');
                 sessionsElement.innerHTML = `
+                    <h2>Session:${session._id}</h2>
                     <div class="date">${(session.sessionDate).slice(0, 10)}</div>
                     <div class="info">
                         <h3>${session.subject}</h3>
                         <p>${session.sessionTime} | Student: ${session.student}</p>
+                        
                     </div>
                     
                     
@@ -60,4 +62,45 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         getAllSessionsByTutor(tutor);
-})
+});
+
+function confirmBooking(button) {
+    let id = button.parentElement.querySelector('h2').textContent.split(':')[1];
+    fetch(`http://localhost:3000/api/bookings/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ status: 'Confirmed' })
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+        //reload the page
+        location.reload();
+}
+
+function deleteBooking(button) {
+    let id = button.parentElement.querySelector('h2').textContent.split(':')[1];
+    fetch(`http://localhost:3000/api/bookings/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+        //reload the page
+        location.reload();
+}
