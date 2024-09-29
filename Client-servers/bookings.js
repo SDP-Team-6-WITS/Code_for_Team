@@ -1,4 +1,4 @@
-// Toggle visibility of cancellation reason field
+// Handle cancellation reason visibility based on status
 document.getElementById('status').addEventListener('change', function() {
     const status = this.value;
     const cancellationReasonContainer = document.getElementById('cancellationReasonContainer');
@@ -11,7 +11,7 @@ document.getElementById('status').addEventListener('change', function() {
     }
 });
 
-// Fetch the tutors from the database
+// Function to fetch tutors from the database
 const fetchTutors = async (url) => {
     try {
         const response = await fetch(url);
@@ -26,10 +26,10 @@ const fetchTutors = async (url) => {
     }
 };
 
-// Render the available tutors into the select dropdown
+// Render available tutors into the select dropdown
 const renderAvailableTutors = (tutors) => {
     const tutorsSelect = document.getElementById('tutor');
-    tutorsSelect.innerHTML = ''; 
+    tutorsSelect.innerHTML = ''; // Clear previous options
 
     const placeholderOption = document.createElement('option');
     placeholderOption.textContent = 'Select a Tutor';
@@ -44,47 +44,64 @@ const renderAvailableTutors = (tutors) => {
     });
 };
 
+// Load tutors and set the selected tutor from localStorage
 const loadTutors = async () => {
-    const availableTutors = await fetchTutors('http://localhost:3000/api/users');
+    const availableTutors = await fetchTutors(`${API_BASE_URL}/users`);
     renderAvailableTutors(availableTutors);
+
+    // Get the selected tutor from localStorage
+    const selectedTutor = JSON.parse(localStorage.getItem('selectedTutor'));
+
+    if (selectedTutor) {
+        const tutorSelect = document.getElementById('tutor');
+        for (let option of tutorSelect.options) {
+            if (option.value === selectedTutor._id) {
+                option.selected = true; // Set the correct option as selected
+                break;
+            }
+        }
+
+        // Populate the subject field with the selected tutor's subject
+        const subjectInput = document.getElementById('subject');
+        subjectInput.value = selectedTutor.subjects[0]; // Assuming first subject
+    }
 };
 
-document.addEventListener('DOMContentLoaded', loadTutors);
-
-//Booking a schedule
-document.addEventListener('DOMContentLoaded', () => {
+// Handle form submission for booking
+document.addEventListener('DOMContentLoaded', async () => {
     // Load tutors on page load
-    loadTutors();
+    await loadTutors();
 
-    // Handle form submission
     const bookingForm = document.getElementById('bookingForm');
 
     bookingForm.addEventListener('submit', async function (event) {
         event.preventDefault(); // Prevent default form submission
 
         // Gather form data
-        const student = "66d3c6bea7133bbc3a897ec1";
+        const student = localStorage.getItem('userId'); 
         const tutor = document.getElementById('tutor').value;
-        const subject=document.getElementById('subject').value;
+        const subject = document.getElementById('subject').value;
         const sessionDate = document.getElementById('sessionDate').value;
         const sessionTime = document.getElementById('sessionTime').value;
         const duration = document.getElementById('duration').value;
         const status = document.getElementById('status').value;
+        const meetingType = document.getElementById('meetingtype').value;
 
         // Prepare booking data to match the format expected by the database
         const bookingData = {
             student: student,
             tutor: tutor,
-            subject:subject,
+            subject: subject,
             sessionDate: sessionDate,
             sessionTime: sessionTime,
-            duration: parseInt(duration) * 60, // Assuming you want duration in minutes
-            status: status
+            duration: parseInt(duration) * 60, // Convert duration to seconds
+            status: status,
+            meetingType: meetingType
         };
 
         try {
             // Send POST request to the booking API
-            const response = await fetch('http://localhost:3000/api/bookings', {
+            const response = await fetch(`${API_BASE_URL}/bookings`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -93,15 +110,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.ok) {
-                // Handle success
                 const responseData = await response.json();
                 alert('Booking created successfully!');
                 console.log('Booking data:', responseData);
-
-                // Optionally, reset the form after submission
                 bookingForm.reset();
+                localStorage.removeItem('bookingTutor');
+                localStorage.removeItem('selectedSubject');
+                localStorage.removeItem('selectedTutor');
             } else {
-                // Handle errors
                 const errorData = await response.json();
                 alert('Error creating booking: ' + errorData.message);
             }

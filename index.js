@@ -16,9 +16,11 @@ import { authenticateToken} from './tokenmiddleware.js';
 const app = express();
 
 
-const mongoURI = 'mongodb+srv://pravirstudy:l9bCqH0MJzLQOtFl@backenddb.li8va.mongodb.net/?retryWrites=true&w=majority&appName=BackEndDB';
+const mongoURI = 'mongodb://localhost:27017/Testdb';
 
 mongoose.connect(mongoURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
   serverSelectionTimeoutMS: 50000 
 })
   .then(() => console.log('MongoDB connected'))
@@ -60,19 +62,14 @@ app.get('/',  (req, res) => {
   res.sendFile(path.join(__dirname, 'dashboard.html'));
 });
 
+
 app.get('/tutor_dashboard.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'tutor_dashboard.html'));
-});
-
-app.get('/test',  (req, res) => {
-  res.send('test');
 });
 
 
 const port = process.env.PORT || 3000;
 
-const server = app.listen(port, () => {
+app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-
- 

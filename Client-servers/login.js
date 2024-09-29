@@ -1,18 +1,20 @@
-
 // Redirect to Google OAuth route when Google login button is clicked
+const API_BASE_URL = window.location.hostname === 'localhost'
+    ? 'http://localhost:3000/api'
+    : 'https://finalbackend2099.azurewebsites.net/api';
+
 function handleGoogleLogin() {
     window.location.href = '/auth/google';
 }
 
 document.addEventListener('DOMContentLoaded', handleAuthRedirect);
 
-
 function handleAuthRedirect() {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
     const userId = urlParams.get('userId');
+
     
-   
     if (token && userId) {
         localStorage.setItem('token', token);
         localStorage.setItem('userId', userId);
@@ -41,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             try {
-                const response = await fetch('https://finalbackend2099.azurewebsites.net/api/users/login', {
+                const response = await fetch(`${API_BASE_URL}/users/login`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -53,8 +55,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     const data = await response.json();
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('userId', data.userId);
+                    localStorage.setItem('role', data.role); // Store role in localStorage
                     alert('Login successful!');
-                    window.location.href = './dashboard.html';
+
+                    // Redirect based on role
+                    if (data.role === 'tutor') {
+                        window.location.href = './views/tutor_dashboard.html'; // Redirect to tutor's dashboard
+                    } else if (data.role === 'student') {
+                        window.location.href = './dashboard.html'; // Redirect to student's dashboard
+                    } 
                 } else {
                     const errorData = await response.json();
                     alert('Error logging in: ' + errorData.message);
@@ -81,7 +90,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
-        const response = await fetch(`https://finalbackend2099.azurewebsites.net/api/users/${userId}`, {
+        const response = await fetch(`${API_BASE_URL}/users/${userId}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
@@ -92,7 +101,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const { fname, lname } = user;
 
             // Fetch profile picture as a binary stream
-            const imageResponse = await fetch(`https://finalbackend2099.azurewebsites.net/api/users/${userId}/profile-picture`, {
+            const imageResponse = await fetch(`${API_BASE_URL}/users/${userId}/profile-picture`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
@@ -113,7 +122,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             profileNameElement.textContent = `${fname} ${lname}`;
         } else {
             console.error('Failed to fetch user data');
-            window.location.href = './login.html'; // Redirect to login if user data fetch fails
+            // Redirect to login if user data fetch fails
         }
     } catch (error) {
         console.error('Error fetching user data:', error);

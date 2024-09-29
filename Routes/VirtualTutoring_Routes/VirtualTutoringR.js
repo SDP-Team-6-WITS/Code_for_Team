@@ -46,19 +46,15 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   const { id } = req.params;
-  const updateData = req.body;
-
+  const payload = req.body;
   try {
-    // Ensure you handle the update operation correctly
-    const updatedSession = await VirtualTutoring.findByIdAndUpdate(id, updateData, { new: true });
-    
-    if (updatedSession) {
-      res.status(200).json(updatedSession);
+    const session = await modifySession(id, payload);
+    if (session) {
+      res.status(200).json(session);
     } else {
       res.status(404).json({ message: 'Session not found' });
     }
   } catch (error) {
-    console.error('Error updating session:', error); // Log the error
     res.status(500).json({ message: 'Error updating session', error: error.message });
   }
 });

@@ -1,3 +1,8 @@
+const API_BASE_URL = window.location.hostname === 'localhost'
+    ? 'http://localhost:3000/api'
+    : 'https://finalbackend2099.azurewebsites.net/api';
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const registerForm = document.getElementById('register-form');
     if (registerForm) {
@@ -5,28 +10,25 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
 
             // Get the form values
-            const role = document.getElementById('role') ? document.getElementById('role').value : '';
-            const email = document.getElementById('email') ? document.getElementById('email').value : '';
-            const password = document.getElementById('password') ? document.getElementById('password').value : '';
-            
+            const role = document.getElementById('role').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
             // Initialize fname and lname to empty strings
             let fname = '';
             let lname = '';
 
-            // Check if fields are visible before accessing their values
-            if (document.getElementById('student-fname') && document.getElementById('student-fname').closest('.hidden') === null) {
+            // Check which name fields to get
+            if (role === 'student') {
                 fname = document.getElementById('student-fname').value;
-            } else if (document.getElementById('tutor-fname') && document.getElementById('tutor-fname').closest('.hidden') === null) {
-                fname = document.getElementById('tutor-fname').value;
-            }
-
-            if (document.getElementById('student-lname') && document.getElementById('student-lname').closest('.hidden') === null) {
                 lname = document.getElementById('student-lname').value;
-            } else if (document.getElementById('tutor-lname') && document.getElementById('tutor-lname').closest('.hidden') === null) {
+            } else if (role === 'tutor') {
+                fname = document.getElementById('tutor-fname').value;
                 lname = document.getElementById('tutor-lname').value;
             }
 
             const profilePicture = document.getElementById('profilePicture') ? document.getElementById('profilePicture').files[0] : null;
+
 
             // Validate the form fields
             if (!role || !email || !password || !fname || !lname) {
@@ -44,21 +46,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Add role-specific fields
             if (role === 'student') {
-                const courses = document.querySelectorAll('#courses-group input');
+                const courses = document.querySelectorAll('#courses-group input[type="text"]');
                 courses.forEach(course => {
                     if (course.value) {
                         formData.append('courses[]', course.value);
                     }
                 });
             } else if (role === 'tutor') {
-                const subjects = document.querySelectorAll('#subjects-group input');
+                const subjects = document.querySelectorAll('#subjects-group input[type="text"]');
                 subjects.forEach(subject => {
                     if (subject.value) {
                         formData.append('subjects[]', subject.value);
                     }
                 });
 
-                const qualifications = document.querySelectorAll('#qualification-group input');
+                const qualifications = document.querySelectorAll('#qualification-group input[type="text"]');
                 qualifications.forEach(qualification => {
                     if (qualification.value) {
                         formData.append('qualifications[]', qualification.value);
@@ -71,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             try {
-                const response = await fetch('http://localhost:3000/api/users', {
+                const response = await fetch(`${API_BASE_URL}/users`, {
                     method: 'POST',
                     body: formData,
                 });
@@ -91,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Profile picture preview functionality
     const profilePictureInput = document.getElementById('profilePicture');
     const profilePicturePreview = document.getElementById('profilePicturePreview');
 
