@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+
 const availabilitySchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -34,4 +36,4 @@ const availabilitySchema = new mongoose.Schema({
 
 
 const Availability = mongoose.model('Availability', availabilitySchema);
-module.exports = Availability;
+export default Availability;

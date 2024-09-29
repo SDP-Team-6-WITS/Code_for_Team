@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Availability</title>
     <link rel="stylesheet" href="style.css">
+    <script src="./availability.js"></script>
 </head>
 <body>
     <div class="dashboard">
@@ -30,7 +31,7 @@
                     <input type="text" placeholder="Search your upcoming sessions here">
                 </header>
                 <h1>Set Your Availability</h1>
-                <section id="availability-List" class="availability-List"></section>
+                <section id="availability-list" class="availability-list"></section>
             </main>
         </div>
     </div>
@@ -39,63 +40,63 @@
     </footer>
 
     <script>
-        // Example of pre-loaded availability times
-        const savedAvailability = {
-            monday: { start: "09:00", end: "17:00" },
-            tuesday: { start: "09:00", end: "17:00" },
-            wednesday:  { start: "09:00", end: "17:00" },
-            thursday:  { start: "09:00", end: "17:00" },
-            friday:  { start: "09:00", end: "17:00" },
-            saturday:  { start: "09:00", end: "17:00" },
-            sunday:  { start: "09:00", end: "17:00" },
-        };
+        // // Example of pre-loaded availability times
+        // const savedAvailability = {
+        //     monday: { start: "09:00", end: "17:00" },
+        //     tuesday: { start: "09:00", end: "17:00" },
+        //     wednesday:  { start: "09:00", end: "17:00" },
+        //     thursday:  { start: "09:00", end: "17:00" },
+        //     friday:  { start: "09:00", end: "17:00" },
+        //     saturday:  { start: "09:00", end: "17:00" },
+        //     sunday:  { start: "09:00", end: "17:00" },
+        // };
 
-        // Load saved times into the form
-        window.onload = function() {
-            for (let day in savedAvailability) {
-                if (savedAvailability[day]) {
-                    document.getElementById(day + '-start').value = savedAvailability[day].start;
-                    document.getElementById(day + '-end').value = savedAvailability[day].end;
-                    document.getElementById(day + '-start').disabled = true;
-                    document.getElementById(day + '-end').disabled = true;
-                }
-            }
-        };
+        // // Load saved times into the form
+        // window.onload = function() {
+        //     for (let day in savedAvailability) {
+        //         if (savedAvailability[day]) {
+        //             document.getElementById(day + '-start').value = savedAvailability[day].start;
+        //             document.getElementById(day + '-end').value = savedAvailability[day].end;
+        //             document.getElementById(day + '-start').disabled = true;
+        //             document.getElementById(day + '-end').disabled = true;
+        //         }
+        //     }
+        // };
 
-        // Enable editing for a specific day
-        function editTime(day) {
-            document.getElementById(day + '-start').disabled = false;
-            document.getElementById(day + '-end').disabled = false;
-        }
+        // // Enable editing for a specific day
+        // function editTime(day) {
+        //     document.getElementById(day + '-start').disabled = false;
+        //     document.getElementById(day + '-end').disabled = false;
+        // }
 
-        document.getElementById('availabilityForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent form submission
+        // document.getElementById('availabilityForm').addEventListener('submit', function(event) {
+        //     event.preventDefault(); // Prevent form submission
 
-            // Create the confirmation dialog
-            let confirmation = confirm("Are you sure you want to save your availability?");
+        //     // Create the confirmation dialog
+        //     let confirmation = confirm("Are you sure you want to save your availability?");
             
-            if (confirmation) {
-                // If the user clicks "Yes"
-                showSelectedAvailability();
-            }
-        });
+        //     if (confirmation) {
+        //         // If the user clicks "Yes"
+        //         showSelectedAvailability();
+        //     }
+        // });
 
-        function showSelectedAvailability() {
-            const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-            let availabilityMessage = "Your selected availability:\n";
+        // function showSelectedAvailability() {
+        //     const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+        //     let availabilityMessage = "Your selected availability:\n";
 
-            days.forEach(day => {
-                const startTime = document.getElementById(day.toLowerCase() + '-start').value;
-                const endTime = document.getElementById(day.toLowerCase() + '-end').value;
+        //     days.forEach(day => {
+        //         const startTime = document.getElementById(day.toLowerCase() + '-start').value;
+        //         const endTime = document.getElementById(day.toLowerCase() + '-end').value;
 
-                if (startTime && endTime) {
-                    availabilityMessage += `${day}: ${startTime} to ${endTime}\n`;
-                }
-            });
+        //         if (startTime && endTime) {
+        //             availabilityMessage += `${day}: ${startTime} to ${endTime}\n`;
+        //         }
+        //     });
 
-            alert(availabilityMessage); // Display the selected times
-            location.reload(); // Refresh the page to show the editable form again
-        }
+        //     alert(availabilityMessage); // Display the selected times
+        //     location.reload(); // Refresh the page to show the editable form again
+        // }
     </script>
 </body>
 </html>

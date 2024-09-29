@@ -13,6 +13,7 @@ import virtualtutoringRoutes from './Routes/VirtualTutoring_Routes/VirtualTutori
 import './Authentication/passport.js';
 import { authenticateToken} from './tokenmiddleware.js'; 
 import feedbackRoutes from './Routes/Feedback_Routes/FeedbackR.js';
+import availability from './Routes/Booking_Routes/AvailabilityR.js';
 
 const app = express();
 
@@ -48,6 +49,7 @@ app.use('/api/notifications', notificationRoutes);
 app.use('/api/virtualtutoring', virtualtutoringRoutes);
 app.use('/api/resourcesfile', resourcefileRoutes);
 app.use('/api/feedback', feedbackRoutes);
+app.use('/api/availability', availability);
 
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
