@@ -26,16 +26,17 @@
                 const events = await response.json();
 
                 events.forEach(event => {
+                    const studentNumber = booking.USER_ID.split('@')[0];
                     const eventElement = document.createElement('div');
                     eventElement.innerHTML = `
                         <h3>${event.EVENT_NAME}</h3>
-                        <p><strong>Booking ID:</strong> ${event.BOOKING_ID}</p>
-                        <p><strong>Venue ID:</strong> ${event.VENUE_ID}</p>
+                        <p><strong>Booking Number:</strong> ${event.BOOKING_ID}</p>
+                        <p><strong>Venue Number:</strong> ${event.VENUE_ID}</p>
                         <p><strong>Date:</strong> ${new Date(event.DATE).toLocaleDateString()}</p>
                         <p><strong>Start Time:</strong> ${event.START_TIME}</p>
                         <p><strong>End Time:</strong> ${event.END_TIME}</p>
                         <p><strong>Status:</strong> ${event.BOOKING_STATUS}</p>
-                        <p><strong>User ID:</strong> ${event.USER_ID}</p>
+                        <p><strong>Student Number that Booked:</strong> ${studentNumber}</p>
                     `;
                     eventsList.appendChild(eventElement);
                 });
