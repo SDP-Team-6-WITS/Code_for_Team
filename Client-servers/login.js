@@ -83,6 +83,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Retrieve user ID and token from localStorage (already stored on login)
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
+    console.log(token);
+    console.log(userId);
 
     if (!token || !userId) {
         console.error('No token or user ID found, redirect to login');
