@@ -19,8 +19,7 @@ const app = express();
 const mongoURI = 'mongodb+srv://pravirstudy:l9bCqH0MJzLQOtFl@backenddb.li8va.mongodb.net/?retryWrites=true&w=majority&appName=BackEndDB';
 
 mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+
   serverSelectionTimeoutMS: 50000 
 })
   .then(() => console.log('MongoDB connected'))
