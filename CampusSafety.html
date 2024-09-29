@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alert Data Display</title>
+</head>
+<body>
+
+    <h1>Alert Data</h1>
+    <ul id="alert-list"></ul>
+
+    <script>
+        async function fetchAlertData() {
+            try {
+                const response = await fetch('https://sdp-campus-safety.azurewebsites.net/alert');
+                const alertData = await response.json();
+                displayAlerts(alertData);
+
+            } catch (error) {
+                console.error('Error fetching alert data:', error);
+            }
+        }
+        function displayAlerts(data) {
+            const alertList = document.getElementById('alert-list');
+
+            data.forEach(alert => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <p><strong>First Name:</strong> ${alert.firstName || 'N/A'}</p>
+                    <p><strong>Last Name:</strong> ${alert.lastName || 'N/A'}</p>
+                    <p><strong>Phone Number:</strong> ${alert.phoneNumber || 'N/A'}</p>
+                    <p><strong>Race:</strong> ${alert.race || 'N/A'}</p>
+                    <p><strong>Gender:</strong> ${alert.gender || 'N/A'}</p>
+                    <p><strong>Details:</strong> ${alert.details}</p>
+                    <p><strong>Longitude:</strong> ${alert.lon}</p>
+                    <p><strong>Latitude:</strong> ${alert.lat}</p>
+                    <p><strong>Age:</strong> ${alert.age || 'N/A'}</p>
+                    <p><strong>Status:</strong> ${alert.status}</p>
+                    <p><strong>Alert ID:</strong> ${alert.alertID}</p>
+                    <p><strong>Alert Date:</strong> ${new Date(alert.alertDate._seconds * 1000).toLocaleString()}</p>
+                    <hr>
+                `;
+                alertList.appendChild(li);
+            });
+        }
+        fetchAlertData();
+    </script>
+
+</body>
+</html>
