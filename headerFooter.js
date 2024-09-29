@@ -55,6 +55,7 @@ class AppSidebar extends HTMLElement {
           <li><a href="virtualTutoring.html"><img src="./Icons/schedule-svgrepo-com.svg" alt="Virtual Tutoring"> <span>Virtual Tutoring</span></a></li>
           <li><a href="resource-sharing.html"><img src="./Icons/resources-svgrepo-com.svg" alt="Resources"> <span>Resources</span></a></li>
           <li><a href="#"><img src="./Icons/review-screen-svgrepo-com.svg" alt="Review"> <span>Transport</span></a></li>
+          <li><a href="Events.html"><img src="./Icons/event.svg" alt="Event"> <span>Event</span></a></li>
           <li><a href="#" id="logout"><img src="./Icons/logout-icon.svg" alt="Logout"> <span>Logout</span></a></li>
         </ul>
       </div>

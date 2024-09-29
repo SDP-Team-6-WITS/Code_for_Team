@@ -1,7 +1,6 @@
 // Redirect to Google OAuth route when Google login button is clicked
-const API_BASE_URL = window.location.hostname === 'localhost'
-    ? 'http://localhost:3000/api'
-    : 'https://finalbackend2099.azurewebsites.net/api';
+const API_BASE_URL = ':https://backendapi2003.azurewebsites.net/api';
+
 
 function handleGoogleLogin() {
     window.location.href = '/auth/google';
