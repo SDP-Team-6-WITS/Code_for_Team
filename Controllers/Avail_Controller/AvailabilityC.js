@@ -16,7 +16,21 @@ export const changeAvailability = async (id, payload) => {
         const availability = await Availability.findById(id);
         if(!availability) throw new Error('Availability not found');
         Object.keys(payload).forEach((key) => {
-            availability[key] = payload[key];
+            if(typeof payload[key] === 'object'){
+                Object.keys(payload[key]).forEach((subKey) => {
+                    if(typeof payload[key][subKey] === 'object'){
+                        Object.keys(payload[key][subKey]).forEach((subSubKey) => {
+                            availability[key][subKey][subSubKey] = payload[key][subKey][subSubKey];
+                        });
+                    }
+                    else{
+                        availability[key][subKey] = payload[key][subKey];
+                    }
+                });
+            }
+            else{ 
+                availability[key] = payload[key];
+            }
         });
         const updatedAvailability = await availability.save();
         return updatedAvailability;

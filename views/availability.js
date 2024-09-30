@@ -87,10 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         for(let j=0; j<slotElements.length; j++){
                             let start = ((slotElements[j]).querySelector(`#start${id}${date}${j}`)).value;
                             let end = ((slotElements[j]).querySelector(`#end${id}${date}${j}`)).value;
-                            slots.push({start, end});
-                            console.log(start, end);
+                            slots.push({start: start, end: end});
+                            console.log(start, end)
                         }
-                        availability.push({date, slots});
+                        availability.push({date: date, slots: slots});
                     }
                     const availData = {
                         availability: availability,
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         endDate: endDate
                     }
 
-                    await fetch(`http://localhost:3000/api/availability/${availability._id}`, {
+                    await fetch(`http://localhost:3000/api/availability/${id}`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json'
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     })
                         .then(response => response.json())
                         .then(data => {
-                            console.log(data);
+                            //console.log(data);
                         })
                         .catch(error => {
                             console.error('Error:', error);
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                 
                         //reload the page
-                        //location.reload();
+                        location.reload();
                 });
             });
 
@@ -170,10 +170,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         for(let j=0; j<slotElements.length; j++){
                             let start = ((slotElements[j]).querySelector(`#start${date}${j}`)).value;
                             let end = ((slotElements[j]).querySelector(`#end${date}${j}`)).value;
-                            slots.push({start, end});
-                            console.log(start, end);
+                            slots.push({start: start, end: end});
                         }
-                        availability.push({date, slots});
+                        availability.push({date: date, slots: slots});
                     }
                     const availData = {
                         user: tutor,
@@ -199,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                 
                         //reload the page
-                        //location.reload();
+                        location.reload();
                 });
 
             
@@ -211,3 +210,22 @@ document.addEventListener('DOMContentLoaded', () => {
         
         
 });
+
+function deleteAvailability(button) {
+    let id = (((button.parentElement).querySelector('h3')).textContent).split(':')[1];
+    fetch(`http://localhost:3000/api/availability/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            //location.reload();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            confirm(error);
+        });
+}
