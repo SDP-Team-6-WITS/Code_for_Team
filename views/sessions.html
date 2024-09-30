@@ -8,7 +8,7 @@
     <script src="./sessions.js"></script>
 </head>
 <body>
-    <div class="header"></div>
+    <div class="header">
         <img class="logo" src="../Icons/logo.svg" alt="">
         <input class="search" type="text" placeholder="Search">
         <ul>
@@ -41,5 +41,27 @@
             <li><a href="#" onclick="handleLogout()"><span>Logout</span></a></li>
         </ul>
     </div>
+    <div id = "content" class="main-content">
+        <h1>YOUR SESSIONS WILL APPEAR HERE</h1>
+        <div id = "pending-list">
+            <h2>Pending requests</h2>
+        </div>
+        <div id = "confirmed-list">
+            <h2>Confirmed Sessions</h2>
+        </div>
+        <div id = "completed-list">
+            <h2>Completed Sessions</h2>
+        </div>
+        <div id = "cancelled-list">
+            <h2>Cancelled Sessions</h2>
+        </div>
+    </div>
+    <script>
+        function handleLogout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('userId');
+            window.location.href = '../login.html';
+        }
+    </script>
 </body>
 </html>

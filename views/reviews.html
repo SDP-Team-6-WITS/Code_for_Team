@@ -43,5 +43,16 @@
     </div>
     <div id = "content" class="main-content">
         <h1>Feedback from students will appear here</h1>
+        <div id = "review-list"></div>
+    </div>
+
+    <script>
+        function handleLogout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('userId');
+            window.location.href = '../login.html';
+        }
+    </script>
+    
 </body>
 </html>
