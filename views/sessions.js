@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     completedSessions.appendChild(sessionsElement);
                 }
                 else if(session.status == "Cancelled"){
+                    sessionsElement.innerHTML += `<p>${session.cancellationReason}</p>`;
                     sessionsElement.innerHTML += `<button class="delete-btn" onclick="deleteBooking(this)">Delete</button>`;
                     cancelledSessions.appendChild(sessionsElement);
                 }
