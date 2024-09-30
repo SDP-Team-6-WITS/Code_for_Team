@@ -12,6 +12,12 @@ body {
     transition: background-color 0.3s color 
 }
 
+h1 {
+    margin-left: 10px; /* Adjust this value as needed */
+    /* Or you can use padding if you want to add space inside the h1 */
+    padding-left: 0;
+}
+
 .account-link {
     display: flex;
     flex-direction: row;
@@ -81,10 +87,42 @@ body {
 }
 
 .review-card:hover{
-    background-color: #e0e0e0; /* Change background on hover */
+    background-color: #39a6e0; /* Change background on hover */
 }
 
 .review-card h2 {
+    margin: 0 0 10px;
+    color: #333;
+}
+
+.avail {
+    width: 100%;
+    max-width: 600px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.avail:hover{
+    background-color: #4ab3f4; /* Change background on hover */
+}
+
+.avail h3 {
+    margin: 0 0 10px;
+    color: #0f0f0f;
+}
+
+.edit-btn {
+    background-color: #39a6e0;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.review-card h3 {
     margin: 0 0 10px;
     color: #333;
 }
@@ -244,7 +282,6 @@ p {
     color: #4ab3f4;
 }
 
-/* Style for the availability form */
 .availability-form {
     display: flex;
     flex-direction: column;
@@ -267,6 +304,105 @@ p {
     flex: 1;
     font-size: 16px;
     font-weight: bold;
+}
+
+.pending-list {
+    width: 100%;
+    max-width: 600px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.pending-list:hover{
+    background-color: #4ab3f4; /* Change background on hover */
+}
+
+.confirmed-list {
+    width: 100%;
+    max-width: 600px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.confimed-list:hover{
+    background-color: #4ab3f4; /* Change background on hover */
+}
+
+.completed-list {
+    width: 100%;
+    max-width: 600px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.completed-list:hover{
+    background-color: #4ab3f4; /* Change background on hover */
+}
+
+.cancelled-list {
+    width: 100%;
+    max-width: 600px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.cancelled-list:hover{
+    background-color: #4ab3f4; /* Change background on hover */
+}
+
+.confirm-btn{
+    background-color: #4ab3f4;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.session.highlighted {
+    background-color: #39a6e0;
+    color: white;
+}
+
+.session.highlighted .date {
+    color: white;
+}
+
+.session.highlighted .time {
+    color: white;
+}
+
+.session.highlighted .status {
+    color: white;
+}
+
+.session.highlighted .confirm-btn {
+    background-color: #4ab3f4;
+}
+
+.session.highlighted .info{
+    color: black;
+}
+
+.session.highlighted .h3{
+    color: black;
+}
+
+.delete-btn{
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
 }
 
 /* Time input styling */
@@ -485,3 +621,17 @@ p {
     background-color: #0f0f11;
 }
 
+.title-resources {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.title-resources.resources-sharing-section {
+    margin-top: 20px;
+}
+
+.title-resources.title-resources.resources-sharing-section.resource-upload{
+    margin-top: 20px;
+}
