@@ -36,9 +36,9 @@ router.get('/:tutor', async (req, res) => {
 });
 
 //Add tutor availability
-router.put('/:tutor', async (req, res) => {
+router.put('/:id', async (req, res) => {
   try{
-      const tutor = req.params.tutor;
+      const id = req.params.id;
       const payload = req.body;
       const availability = await changeAvailability(id, payload);
       res.status(201).json(availability);
@@ -49,7 +49,7 @@ router.put('/:tutor', async (req, res) => {
 });
 
 //Post tutor availability
-router.post('/:tutor', async (req, res) => {
+router.post('/', async (req, res) => {
   try{
       const payload = req.body;
       const availability = await createAvailability(payload);

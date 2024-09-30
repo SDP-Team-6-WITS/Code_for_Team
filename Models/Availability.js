@@ -15,11 +15,9 @@ const availabilitySchema = new mongoose.Schema({
         slots: [{
             start: {
                 type: String, // Time in HH:mm format
-                required: true
             },
             end: {
                 type: String, // Time in HH:mm format
-                required: true
             }
         }]
     }],
