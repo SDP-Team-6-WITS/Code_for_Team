@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tutor = localStorage.getItem('userId');
     
     const pendingSessions = document.getElementById('pending-list');
-    const upcomingSessions = document.getElementById('session-list');
+    const upcomingSessions = document.getElementById('confirmed-list');
     const completedSessions = document.getElementById('completed-list');
     const cancelledSessions = document.getElementById('cancelled-list');
 
@@ -30,10 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const sessionsElement = document.createElement('div');
                 sessionsElement.classList.add('session-highlighted');
                 sessionsElement.innerHTML = `
-                    <h2>Session:${session._id}</h2>
+                    <h3>Session:${session._id}</h3>
                     <div class="date">${(session.sessionDate).slice(0, 10)}</div>
                     <div class="info">
-                        <h3>${session.subject}</h3>
+                        <h4>${session.subject}</h4>
                         <p>${session.sessionTime} | Student: ${session.student}</p>
                         
                     </div>
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function confirmBooking(button) {
-    let id = button.parentElement.querySelector('h2').textContent.split(':')[1];
+    let id = button.parentElement.querySelector('h3').textContent.split(':')[1];
     fetch(`http://localhost:3000/api/bookings/${id}`, {
         method: 'PUT',
         headers: {
@@ -86,7 +86,7 @@ function confirmBooking(button) {
 }
 
 function deleteBooking(button) {
-    let id = button.parentElement.querySelector('h2').textContent.split(':')[1];
+    let id = button.parentElement.querySelector('h3').textContent.split(':')[1];
     fetch(`http://localhost:3000/api/bookings/${id}`, {
         method: 'DELETE',
         headers: {
