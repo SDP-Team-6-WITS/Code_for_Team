@@ -47,6 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     pendingSessions.appendChild(sessionsElement);
                 }
                 else if(session.status == "Confirmed"){
+                    sessionsElement.innerHTML += `<input id="reason${session._id}" >`;
+                    sessionsElement.innerHTML += `<button class="confirm-btn" onclick="cancelBooking(this)">Cancel</button>`;
                     sessionsElement.innerHTML += `<button class="delete-btn" onclick="deleteBooking(this)">Delete</button>`;
                     upcomingSessions.appendChild(sessionsElement);
                 }
@@ -54,7 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     sessionsElement.innerHTML += `<button class="delete-btn" onclick="deleteBooking(this)">Delete</button>`;
                     completedSessions.appendChild(sessionsElement);
                 }
-                else if(session.status == "Completed"){
+                else if(session.status == "Cancelled"){
+                    sessionsElement.innerHTML += `<p>${session.cancellationReason}</p>`;
                     sessionsElement.innerHTML += `<button class="delete-btn" onclick="deleteBooking(this)">Delete</button>`;
                     cancelledSessions.appendChild(sessionsElement);
                 }
@@ -103,4 +106,26 @@ function deleteBooking(button) {
 
         //reload the page
         location.reload();
+}
+
+function cancelBooking(button) {
+    let id = button.parentElement.querySelector('h3').textContent.split(':')[1];
+    let reason = button.parentElement.querySelector(`#reason${id}`).value;
+    fetch(`http://localhost:3000/api/bookings/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ status: 'Cancelled', cancellationReason: reason })
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+        //reload the page
+        //location.reload();
 }
