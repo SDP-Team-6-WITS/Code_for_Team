@@ -41,7 +41,7 @@ body {
     text-align: center;
 }
 
-.ratings-container {
+.review-list {
     width: 100%;
     max-width: 600px;
     background-color: white;
@@ -51,7 +51,7 @@ body {
 }
 
 
-.rating-card {
+.review-card {
     background-color: #fafafa;
     padding: 15px;
     border-radius: 8px;
@@ -59,7 +59,11 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.rating-card h2 {
+.review-card:hover{
+    background-color: #e0e0e0; /* Change background on hover */
+}
+
+.review-card h2 {
     margin: 0 0 10px;
 }
 
@@ -142,13 +146,13 @@ body.dark-theme {
 
 
 .sidebar {
+    height: 100vh;
     width: 250px;
     background-color: #4ab3f4;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: left;
-    height: 100vh;
 }
 
 @media screen and (max-width: 768px) {
