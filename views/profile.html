@@ -9,59 +9,70 @@
     <script src="./profile.js" ></script>
 </head>
 <body>
-    <div class="container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <nav class="Sidebar">
-                <ul>
-                    <li><a href="tutor_dashboard.html">Dashboard</a></li>
-                    <li><a href="profile.html">Profile</a></li>
-                    <li><a href="availability.html">Availability</a></li>
-                    <li><a href="sessions.html">Upcoming sessions</a></li>
-                    <li><a href="resources.html">Resources</a></li>
-                    <li><a href="reviews.html" id="reviews">Reviews</a></li>
-                    <li><a href="settings.html">Settings</a></li>
-                </ul>
-            </nav>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="content">
-            <header class="upload-container">
-                <i class="fas fa-camera camera-icon"></i>
-                <input type="file" accept="image/*" onchange="previewImage(event)">
-            </header>
-            
-            <section class="dashboard">
-                <h2>Personal Details</h2>
-                <form class="profile-form" id="update">
-                    <label for="name_surname">Name and Surname:</label>
-                    <input type="text" id="name" name="name" value="John">
-
-                    <label for="cellphone">Cellphone:</label>
-                    <input type="number" id="cellnumber" name="cellnumber" value="0797029035">
-
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" value="john.doe@example.com">
-
-                    <label for="qualification">Qualification:</label>
-                    <input type="text" id="qualification" name="qualification" value="Bachelor of Science">
-
-                    <label for = "courses">Courses Tutoring</label>
-                    <input type="text" id="courses" name="courses" value="Software Design Project">
-
-                    <label for="updatepassword">Update Password:</label>
-                    <input type="password" id="password" name="password" value="@12344">
-
-                    <button type="submit" class="save-btn">Save</button>
-                </form>
-            </div>
-            </section>
-        </main>
-        <footer class = "footer">
-            <p>Campus Tutoring App</p>
-        </footer>
+    <div class="header">
+        <img class="logo" src="../Icons/logo.svg" alt="">
+        <input class="search" type="text" placeholder="Search">
+        <ul>
+            <li><a href="#"><img src="../Icons/notifications.svg" alt="ping"></a></li>
+            <li><a href="#"><img src="../Icons/chat.svg" alt="ping"></a></li>
+        </ul>
+        <!-- Dark mode toggle switch -->
+        <div class="dark-mode-toggle">
+            <label for="dark-mode-switch" class="switch">
+                <input type="checkbox" id="dark-mode-switch">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <ul class="account-link">
+            <a href="#" id="profile-link">
+                <img id="profile-picture" src="../Icons/profile2.jpg" alt="Profile Picture">
+                <span id="profile-name">Default Name</span>
+            </a>
+        </ul>
     </div>
+    <div id="sidebar" class="sidebar">
+        <button id="toggleButton" class="toggle-button"><img src="../Icons/arrow-left-svgrepo-com.svg" alt=""></button>
+        <ul>
+            <li><a href="tutor_dashboard.html"><span>Dashboard</span></a></li>
+            <li><a href="profile.html"><span>Profile</span></a></li>
+            <li><a href="availability.html"><span>Availability</span></a></li>
+            <li><a href="sessions.html"><span>Sessions</span></a></li>
+            <li><a href="resources.html"><span>Resources</span></a></li>
+            <li><a href="reviews.html" id="reviews"><span>Reviews</span></a></li>
+            <li><a href="#" onclick="handleLogout()"><span>Logout</span></a></li>
+        </ul>
+    </div>
+    <div id = "main-content" class="main-content">
+        <h2>Personal Details</h2>
+        <form class="profile-form" id="update">
+          <label for="name_surname">Name and Surname:</label>
+          <input type="text" id="name" name="name" value="John">
+        
+          <label for="cellphone">Cellphone:</label>
+          <input type="number" id="cellnumber" name="cellnumber" value="0797029035">
+        
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" value="john.doe@example.com">
+        
+          <label for="qualification">Qualification:</label>
+          <input type="text" id="qualification" name="qualification" value="Bachelor of Science">
+        
+          <label for = "courses">Courses Tutoring</label>
+          <input type="text" id="courses" name="courses" value="Software Design Project">
+        
+          <label for="updatepassword">Update Password:</label>
+          <input type="password" id="password" name="password" value="@12344">
+        
+          <button type="submit" class="save-btn">Save</button>
+        </form>
+    </div>
+    <script>
+        function handleLogout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('userId');
+            window.location.href = '../login.html';
+        }
+    </script>
 
     <script>
         function previewImage(event) {

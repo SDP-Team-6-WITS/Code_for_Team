@@ -8,46 +8,38 @@
     <script src="./sessions.js"></script>
 </head>
 <body>
-    <div class="container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <nav class="Sidebar">
-                <ul>
-                    <li><a href="tutor_dashboard.html">Dashboard</a></li>
-                    <li><a href="profile.html">Profile</a></li>
-                    <li><a href="availability.html">Availability</a></li>
-                    <li><a href="sessions.html">Upcoming sessions</a></li>
-                    <li><a href="resources.html">Resources</a></li>
-                    <li><a href="reviews.html" id="reviews">Reviews</a></li>
-                    <li><a href="settings.html">Settings</a></li>
-                </ul>
-            </nav>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="content">
-            <header class="header">
-                <input type="text" id="search-input" placeholder="Search your upcoming sessions here" onkeyup="filterSessions()">
-                <button type="button" class="search-btn">Search</button>
-            </header>
-            
-            <section class="dashboard">
-                <h1>Pending sessions</h1>
-                <div class="session-list" id="pending-list"></div>
-                <h1>Upcoming sessions</h1>
-                <div class="session-list" id="session-list"></div>
-                <h1>Completed sessions</h1>
-                <div class="session-list" id="completed-list"></div>
-                <h1>Cancelled sessions</h1>
-                <div class="session-list" id="cancelled-list"></div>
-            </section>
-            
-        </main>
-        <footer class = "footer">
-            <p>Campus Tutoring App</p>
-        </footer>
+    <div class="header"></div>
+        <img class="logo" src="../Icons/logo.svg" alt="">
+        <input class="search" type="text" placeholder="Search">
+        <ul>
+            <li><a href="#"><img src="../Icons/notifications.svg" alt="ping"></a></li>
+            <li><a href="#"><img src="../Icons/chat.svg" alt="ping"></a></li>
+        </ul>
+        <!-- Dark mode toggle switch -->
+        <div class="dark-mode-toggle">
+            <label for="dark-mode-switch" class="switch">
+                <input type="checkbox" id="dark-mode-switch">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <ul class="account-link">
+            <a href="#" id="profile-link">
+                <img id="profile-picture" src="../Icons/profile2.jpg" alt="Profile Picture">
+                <span id="profile-name">Default Name</span>
+            </a>
+        </ul>
     </div>
-
-
+    <div id="sidebar" class="sidebar">
+        <button id="toggleButton" class="toggle-button"><img src="../Icons/arrow-left-svgrepo-com.svg" alt=""></button>
+        <ul>
+            <li><a href="tutor_dashboard.html"><span>Dashboard</span></a></li>
+            <li><a href="profile.html"><span>Profile</span></a></li>
+            <li><a href="availability.html"><span>Availability</span></a></li>
+            <li><a href="sessions.html"><span>Sessions</span></a></li>
+            <li><a href="resources.html"><span>Resources</span></a></li>
+            <li><a href="reviews.html" id="reviews"><span>Reviews</span></a></li>
+            <li><a href="#" onclick="handleLogout()"><span>Logout</span></a></li>
+        </ul>
+    </div>
 </body>
 </html>

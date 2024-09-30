@@ -5,65 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="JavaScript" href="toogle.js"
+    <link rel="JavaScript" href="toogle.js">
 </head>
 
 <body>
-    <div class="container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            
-            <nav class="sidebar">
-                <ul>
-                    <li><a href="tutor_dashboard.html">Dashboard</a></li>
-                    <li><a href="profile.html">Profile</a></li>
-                    <li><a href="availability.html">Availability</a></li>
-                    <li><a href="sessions.html">Upcoming sessions</a></li>
-                    <li><a href="resources.html">Resources</a></li>
-                    <li><a href="reviews.html" id="reviews">Reviews</a></li>
-                    <li><a href="settings.html">Settings</a></li>
-                </ul>
-            </nav>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="content">
-            <header class="header">
-                <input type="text" placeholder="Search your upcoming sessions here">
-            </header>
-            
-            <section class="dashboard">
-                <h1>Dashboard</h1>
-                <p>Welcome back, John!</p>
-                <h2>Upcoming sessions</h2>
-                    <div class="session highlighted">
-                        <div class="date">Aug, 20</div>
-                        <div class="info">
-                            <h3>Software Design</h3>
-                            <p>4:00 PM | Tutor: Beyonce Koenze</p>
-                        </div>
-                    </div>
-                    <div class="session highlighted">
-                        <div class="date">Aug, 25</div>
-                        <div class="info">
-                            <h3>English</h3>
-                            <p>1:00 PM | Tutor: Sarah Hutson</p>
-                        </div>
-                    </div>
-                    <div class="session highlighted">
-                        <div class="date">Aug, 25</div>
-                        <div class="info">
-                            <h3>English</h3>
-                            <p>1:00 PM | Tutor: Sarah Hutson</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-        </main>
-        <footer class = "footer">
-            <p>Campus Tutoring App</p>
-        </footer>
+    <div class="header">
+        <img class="logo" src="../Icons/logo.svg" alt="">
+        <input class="search" type="text" placeholder="Search">
+        <ul>
+            <li><a href="#"><img src="../Icons/notifications.svg" alt="ping"></a></li>
+            <li><a href="#"><img src="../Icons/chat.svg" alt="ping"></a></li>
+        </ul>
+        <!-- Dark mode toggle switch -->
+        <div class="dark-mode-toggle">
+            <label for="dark-mode-switch" class="switch">
+                <input type="checkbox" id="dark-mode-switch">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <ul class="account-link">
+            <a href="#" id="profile-link">
+                <img id="profile-picture" src="../Icons/profile2.jpg" alt="Profile Picture">
+                <span id="profile-name">Default Name</span>
+            </a>
+        </ul>
     </div>
+    <div id="sidebar" class="sidebar">
+        <button id="toggleButton" class="toggle-button"><img src="../Icons/arrow-left-svgrepo-com.svg" alt=""></button>
+        <ul>
+            <li><a href="tutor_dashboard.html"><span>Dashboard</span></a></li>
+            <li><a href="profile.html"><span>Profile</span></a></li>
+            <li><a href="availability.html"><span>Availability</span></a></li>
+            <li><a href="sessions.html"><span>Sessions</span></a></li>
+            <li><a href="resources.html"><span>Resources</span></a></li>
+            <li><a href="reviews.html" id="reviews"><span>Reviews</span></a></li>
+            <li><a href="#" onclick="handleLogout()"><span>Logout</span></a></li>
+        </ul>
+    </div>
+    <div id = "content" class="main-content">
+        <h1>YOUR CONFIRMED UPCOMING SESSIONS WILL APPEAR HERE</h1>
+    </div>
+    <script>
+        function handleLogout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('userId');
+            window.location.href = '../login.html';
+        }
+    </script>
 </body>
 </html>
