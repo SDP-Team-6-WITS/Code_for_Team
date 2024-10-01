@@ -78,15 +78,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (response.ok) {
                     const data = await response.json();
-                    alert('Registration successful!');
+                    document.getElementById("error-msg").innerHTML=`Loading...`;
+                    document.getElementById("error-msg").style.color = 'white'; 
                     window.location.href = './login.html'; // Redirect to the login page after registration
                 } else {
                     const errorData = await response.json();
-                    alert('Error registering: ' + errorData.message);
+                    document.getElementById("error-msg").innerHTML=`An error occurred while registering.`;
                 }
             } catch (error) {
                 console.error('Error registering:', error);
-                alert('An error occurred while registering.');
+                document.getElementById("error-msg").innerHTML=`An error occurred while registering.`;
             }
         });
     }

@@ -55,8 +55,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('userId', data.userId);
                     localStorage.setItem('role', data.role); // Store role in localStorage
-                    alert('Login successful!');
-
+                    document.getElementById("error-msg").innerHTML=`Loading...`
+                    document.getElementById("error-msg").style.color = 'white';  // Change text color to white
+                    
                     // Redirect based on role
                     if (data.role === 'tutor') {
                         window.location.href = './views/tutor_dashboard.html'; // Redirect to tutor's dashboard
@@ -65,11 +66,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     } 
                 } else {
                     const errorData = await response.json();
-                    alert('Error logging in: ' + errorData.message);
+                   document.getElementById("error-msg").innerHTML=`Error logging in`
                 }
             } catch (error) {
                 console.error('Error logging in:', error);
-                alert('An error occurred while logging in.');
+                document.getElementById("error-msg").innerHTML=`Error logging in`
             }
         });
     } 
