@@ -66,6 +66,32 @@ h1 {
     text-align: center;
 }
 
+.upload-url-form{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.upload-url-form.submit{
+    padding: 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #4285f4;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.upload-btn{
+    background-color: #4ab3f4;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    margin-top: 1px;
+}
+
 .review-list {
     width: 100%;
     max-width: 600px;
@@ -95,12 +121,25 @@ h1 {
     color: #333;
 }
 
-.avail {
+.availability-list{
+    display: flex;
+    flex-direction: row;
     width: 100%;
     max-width: 600px;
     background-color: white;
     padding: 20px;
     border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+}
+
+
+.avail {
+    width: 100%;
+    max-width: 600px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 50px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -271,6 +310,8 @@ p {
     height: calc(100vh - 90px);
 }
 
+
+
 /* Adjust main content on small screens */
 @media screen and (max-width: 768px) {
     .main-content {
@@ -367,32 +408,43 @@ p {
     margin-top: 20px;
 }
 
-.session.highlighted {
-    background-color: #39a6e0;
-    color: white;
+.session-highlighted {
+    background-color: white;
+    color: black;
+    padding: 10px;
+
 }
 
-.session.highlighted .date {
-    color: white;
+.session-highlighted:hover{
+    background-color: #4ab3f4; /* Change background on hover */
 }
 
-.session.highlighted .time {
-    color: white;
-}
-
-.session.highlighted .status {
-    color: white;
-}
-
-.session.highlighted .confirm-btn {
-    background-color: #4ab3f4;
-}
-
-.session.highlighted .info{
+.session-highlighted .date {
     color: black;
 }
 
-.session.highlighted .h3{
+.session-highlighted .h3 {
+    color: white;
+}
+
+.session-highlighted .p{
+    color: white;
+    border-radius: 0%;
+}
+
+.session-highlighted .time {
+    color: white;
+}
+
+.session-highlighted .status {
+    color: white;
+}
+
+.session-highlighted .confirm-btn {
+    background-color: #4ab3f4;
+}
+
+.session-highlighted .info{
     color: black;
 }
 
@@ -405,7 +457,6 @@ p {
     margin-top: 20px;
 }
 
-/* Time input styling */
 .day-availability input[type="time"] {
     flex: 2;
     padding: 5px;
@@ -494,6 +545,7 @@ p {
 .session.highlighted {
     background-color: #39a6e0;
     color: white;
+    box-sizing: auto;
 }
 
 .session.highlighted .date {
