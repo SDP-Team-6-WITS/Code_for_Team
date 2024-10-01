@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const displaySessions = (sessions) => {
-            upcomingSessions.innerHTML = '';
             sessions.forEach(session => {
                 const sessionsElement = document.createElement('div');
                 sessionsElement.classList.add('session-highlighted');
@@ -62,11 +61,19 @@ document.addEventListener('DOMContentLoaded', () => {
                         cancelledSessions.appendChild(sessionsElement);
                     }
                 }
-                else if(upcomingSessions){
-                    if(session.status == "Confirmed"){
+                //Display on the Tutor Dashboard
+                else if(pendingSessions && upcomingSessions){
+                    if(session.status == "Scheduled"){
+                        sessionsElement.innerHTML += `<button class="confirm-btn" onclick="confirmBooking(this)">Confirm</button>`;
+                        sessionsElement.innerHTML += `<button class="delete-btn" onclick="deleteBooking(this)">Delete</button>`;
+                        pendingSessions.innerHTML += `<h2>Pending Sessions</h2>`;
+                        pendingSessions.appendChild(sessionsElement);
+                    }
+                    else if(session.status == "Confirmed"){
                         sessionsElement.innerHTML += `<input id="reason${session._id}" >`;
                         sessionsElement.innerHTML += `<button class="confirm-btn" onclick="cancelBooking(this)">Cancel</button>`;
                         sessionsElement.innerHTML += `<button class="delete-btn" onclick="deleteBooking(this)">Delete</button>`;
+                        upcomingSessions.innerHTML += `<h2>Confirmed Sessions</h2>`;
                         upcomingSessions.appendChild(sessionsElement);
                     }
                 }
