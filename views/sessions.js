@@ -40,26 +40,35 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     
                 `;
-                
-                if(session.status == "Scheduled"){
-                    sessionsElement.innerHTML += `<button class="confirm-btn" onclick="confirmBooking(this)">Confirm</button>`;
-                    sessionsElement.innerHTML += `<button class="delete-btn" onclick="deleteBooking(this)">Delete</button>`;
-                    pendingSessions.appendChild(sessionsElement);
+                if(pendingSessions && completedSessions && cancelledSessions){
+                    if(session.status == "Scheduled"){
+                        sessionsElement.innerHTML += `<button class="confirm-btn" onclick="confirmBooking(this)">Confirm</button>`;
+                        sessionsElement.innerHTML += `<button class="delete-btn" onclick="deleteBooking(this)">Delete</button>`;
+                        pendingSessions.appendChild(sessionsElement);
+                    }
+                    else if(session.status == "Confirmed"){
+                        sessionsElement.innerHTML += `<input id="reason${session._id}" >`;
+                        sessionsElement.innerHTML += `<button class="confirm-btn" onclick="cancelBooking(this)">Cancel</button>`;
+                        sessionsElement.innerHTML += `<button class="delete-btn" onclick="deleteBooking(this)">Delete</button>`;
+                        upcomingSessions.appendChild(sessionsElement);
+                    }
+                    else if(session.status == "Completed"){
+                        sessionsElement.innerHTML += `<button class="delete-btn" onclick="deleteBooking(this)">Delete</button>`;
+                        completedSessions.appendChild(sessionsElement);
+                    }
+                    else if(session.status == "Cancelled"){
+                        sessionsElement.innerHTML += `<p>${session.cancellationReason}</p>`;
+                        sessionsElement.innerHTML += `<button class="delete-btn" onclick="deleteBooking(this)">Delete</button>`;
+                        cancelledSessions.appendChild(sessionsElement);
+                    }
                 }
-                else if(session.status == "Confirmed"){
-                    sessionsElement.innerHTML += `<input id="reason${session._id}" >`;
-                    sessionsElement.innerHTML += `<button class="confirm-btn" onclick="cancelBooking(this)">Cancel</button>`;
-                    sessionsElement.innerHTML += `<button class="delete-btn" onclick="deleteBooking(this)">Delete</button>`;
-                    upcomingSessions.appendChild(sessionsElement);
-                }
-                else if(session.status == "Completed"){
-                    sessionsElement.innerHTML += `<button class="delete-btn" onclick="deleteBooking(this)">Delete</button>`;
-                    completedSessions.appendChild(sessionsElement);
-                }
-                else if(session.status == "Cancelled"){
-                    sessionsElement.innerHTML += `<p>${session.cancellationReason}</p>`;
-                    sessionsElement.innerHTML += `<button class="delete-btn" onclick="deleteBooking(this)">Delete</button>`;
-                    cancelledSessions.appendChild(sessionsElement);
+                else if(upcomingSessions){
+                    if(session.status == "Confirmed"){
+                        sessionsElement.innerHTML += `<input id="reason${session._id}" >`;
+                        sessionsElement.innerHTML += `<button class="confirm-btn" onclick="cancelBooking(this)">Cancel</button>`;
+                        sessionsElement.innerHTML += `<button class="delete-btn" onclick="deleteBooking(this)">Delete</button>`;
+                        upcomingSessions.appendChild(sessionsElement);
+                    }
                 }
             });
         }
