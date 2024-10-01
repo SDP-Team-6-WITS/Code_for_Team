@@ -10,34 +10,15 @@
     
     <div class="header">
         <img class="logo" src="./Icons/logo.svg" alt="">
-        <input class="search" type="text" placeholder="Search">
+        <input id="searchInput" onkeyup="filterTSections()" class="search" type="text" placeholder="Search">
         <ul>
-            <li><a href="#"><img src="./Icons/notifications.svg" alt="Notifications"></a></li>
-            <li><a href="#"><img src="./Icons/chat.svg" alt="Chat"></a></li>
+            <li><a href="notifications.html"><img src="./Icons/notifications.svg" alt="Notifications"></a></li>
+            <li><a href="bus-schedule.html"><img src="./Icons/bus.svg" alt="Bus" width="30px"></a></li>
         </ul>
-        <div class="dark-mode-toggle">
-            <label for="dark-mode-switch" class="switch">
-                <input type="checkbox" id="dark-mode-switch">
-                <span class="slider round"></span>
-            </label>
-        </div>
 
     </div>
 
-    <div id="sidebar" class="sidebar">
-        <button id="toggleButton" class="toggle-button"><img src="./Icons/arrow-left-svgrepo-com.svg" alt=""></button>
-        <ul>
-            <li><a href="dashboard.html"><img src="./Icons/dashboard-svgrepo-com.svg" alt="Dashboard"> <span>Dashboard</span></a></li>
-            <li><a href="AvailableTutors.html"><img src="./Icons/people-svgrepo-com.svg" alt="Tutors"> <span>Tutors</span></a></li>
-            <li><a href="bookings.html"><img src="./Icons/schedule-svgrepo-com.svg" alt="Schedule"> <span>Schedule</span></a></li>
-            <li><a href="virtualTutoring.html"><img src="./Icons/schedule-svgrepo-com.svg" alt="Schedule"> <span>Virtual Tutoring</span></a></li>
-            <li><a href="resource-sharing.html"><img src="./Icons/resources-svgrepo-com.svg" alt="Resources"> <span>Resources</span></a></li>
-            <li><a href="#"><img src="./Icons/review-screen-svgrepo-com.svg" alt="Review"> <span>Transport</span></a></li>
-            <li><a href="Events.html"><img src="./Icons/event.svg" alt="Event"> <span>Event</span></a></li>
-            <li><a href="CampusSafety.html"><img src="./Icons/safety.svg" alt="Safety"> <span>Campus Safety</span></a></li>
-            <li><a href="#" onclick="handleLogout()"><img src="./Icons/logout-icon.svg" alt="Logout"><span>Logout</span></a></li>
-        </ul>
-    </div>
+    <app-sidebar></app-sidebar>
     <div class="main-content">
     <div class="profile-container">
         <div class="profile-header">
@@ -62,13 +43,17 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                window.location.href = './login.html';
-            } else {
-                document.body.style.display = 'block';
-            }
-        });
+    const token = localStorage.getItem('token');
+    if (!token) {
+        window.location.href = './login.html';
+    } else {
+        fetchTutors();
+
+        // Attach event listener to the search input
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', filterTSections);
+    }
+});
         </script> 
         <script>
             // Function to navigate back to the tutor list page
@@ -81,6 +66,7 @@
         
     <script src="./Client-servers/Tutors.js"></script>
     <script src="./Client-servers/register.js"></script>
+    <script src="./headerFooter.js"></script>
     <script src="script.js"></script>
     <script src="./Client-servers/notifications.js"></script> <!-- Link to your JS file -->
 </body>

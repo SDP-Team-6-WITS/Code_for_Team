@@ -45,9 +45,11 @@ const renderAvailableTutors = (tutors) => {
 };
 
 // Load tutors and set the selected tutor from localStorage
+// Load tutors and set the selected tutor and the first subject from localStorage
 const loadTutors = async () => {
     const availableTutors = await fetchTutors(`${API_BASE_URL}/users`);
-    renderAvailableTutors(availableTutors);
+    const tutorsOnly = availableTutors.filter(user => user.role === 'tutor');
+    renderAvailableTutors(tutorsOnly);
 
     // Get the selected tutor from localStorage
     const selectedTutor = JSON.parse(localStorage.getItem('selectedTutor'));
@@ -61,11 +63,70 @@ const loadTutors = async () => {
             }
         }
 
-        // Populate the subject field with the selected tutor's subject
-        const subjectInput = document.getElementById('subject');
-        subjectInput.value = selectedTutor.subjects[0]; // Assuming first subject
+        // Populate the subject dropdown with the selected tutor's subjects
+        const subjectSelect = document.getElementById('subject');
+        subjectSelect.innerHTML = ''; // Clear previous options
+
+        const placeholderOption = document.createElement('option');
+        placeholderOption.textContent = 'Select a Subject ';
+        placeholderOption.value = '';
+        subjectSelect.appendChild(placeholderOption);
+
+        selectedTutor.subjects.forEach((subject, index) => {
+            const subjectOption = document.createElement('option');
+            subjectOption.textContent = subject; // Assuming the subjects are strings
+            subjectOption.value = subject; 
+            subjectSelect.appendChild(subjectOption);
+
+            // Preselect the first subject
+            if (index === 0) {
+                subjectOption.selected = true; // Set the first subject as selected
+            }
+        });
     }
 };
+
+
+
+document.getElementById('tutor').addEventListener('change', async function () {
+    const selectedTutorId = this.value;
+    const availableTutors = await fetchTutors(`${API_BASE_URL}/users`);
+    const selectedTutor = availableTutors.find(user => user._id === selectedTutorId);
+
+    const subjectSelect = document.getElementById('subject');
+    subjectSelect.innerHTML = ''; // Clear previous options
+
+    const placeholderOption = document.createElement('option');
+    placeholderOption.textContent = 'Select a Subject ';
+    placeholderOption.value = '';
+    subjectSelect.appendChild(placeholderOption);
+
+    if (selectedTutor) {
+        selectedTutor.subjects.forEach(subject => {
+            const subjectOption = document.createElement('option');
+            subjectOption.textContent = subject; // Assuming the subjects are strings
+            subjectOption.value = subject;
+            subjectSelect.appendChild(subjectOption);
+        });
+    }
+});
+
+function askToCheckBusSchedule() {
+    Swal.fire({
+        title: 'Want to Check the Bus Schedule?',
+        text: 'Would you like to see the bus schedule for your area?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+        confirmButtonColor: '#007bff',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Redirect to the bus schedule page
+            window.location.href = './bus-schedule.html';
+        }
+    });
+}
 
 // Handle form submission for booking
 document.addEventListener('DOMContentLoaded', async () => {
@@ -111,7 +172,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (response.ok) {
                 const responseData = await response.json();
-                alert('Booking created successfully!');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Booking Created',
+                    text: 'Your booking was created successfully!',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#007bff',
+                    timer: 5000, // Auto-close after 3 seconds (optional)
+                    timerProgressBar: true, // Progress bar for auto-close (optional)
+                }).then((result) => {
+                    // After the user clicks 'OK', show the next prompt
+                    if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+                        askToCheckBusSchedule();
+                    }
+                });          
                 console.log('Booking data:', responseData);
                 bookingForm.reset();
                 localStorage.removeItem('bookingTutor');

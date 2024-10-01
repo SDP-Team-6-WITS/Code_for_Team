@@ -89,7 +89,7 @@ body {
 }
 
 .account-link img {
-    width: 40px;
+    width: 50px;
     border-radius: 50%;
     margin-right: 10px;
 }
@@ -1308,4 +1308,100 @@ tbody tr:nth-child(even) {
 
 tbody tr:hover {
     background-color: #ddd;
+}
+
+.bus-schedule-section {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+.bus-schedule-section h1 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+.bus-schedule-section p {
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* Bus Schedule Cards */
+.bus-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: #fafafa;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.bus-card .route-info {
+    flex-basis: 70%;
+}
+.bus-card .route-info h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #0056b3;
+}
+.bus-card .route-info p {
+    margin: 5px 0;
+    color: #333;
+}
+.bus-card .bus-status {
+    flex-basis: 30%;
+    text-align: right;
+}
+.bus-card .bus-status span {
+    background-color: #28a745;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+}
+.bus-card .bus-status span.delayed {
+    background-color: #dc3545;
+}
+
+/* Stops Table */
+.bus-stops {
+    margin-top: 15px;
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+.bus-stops th, .bus-stops td {
+    padding: 10px;
+    text-align: left;
+}
+.bus-stops th {
+    background-color: #007bff;
+    color: white;
+}
+.bus-stops td {
+    border-bottom: 1px solid #ddd;
+}
+.bus-stops tr:last-child td {
+    border-bottom: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .bus-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .bus-card .bus-status {
+        text-align: left;
+        margin-top: 10px;
+    }
+}
+
+.delete-profile-container {
+    display: flex;                 /* Use flexbox */
+    justify-content: center;       /* Center horizontally */
+    align-items: center;           /* Center vertically if needed */
+    height: 100%;                  /* Set height if needed */
 }

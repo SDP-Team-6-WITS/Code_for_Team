@@ -1,10 +1,13 @@
-// File: Tutors.js
 document.addEventListener('DOMContentLoaded', function() {
     const token = localStorage.getItem('token');
     if (!token) {
         window.location.href = './login.html';
     } else {
         fetchTutors();
+
+        // Attach event listener to the search input
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', filterTSections);
     }
 });
 
@@ -84,6 +87,27 @@ async function displayTutors(tutors, token) {
         tutorList.appendChild(tutorElement);
     }
 }
+
+function filterTSections() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const tutorCards = document.getElementsByClassName('tutor-card'); // Update to target tutor cards
+
+    for (let i = 0; i < tutorCards.length; i++) {
+        const tutorName = tutorCards[i].querySelector('h3').innerText.toLowerCase();
+        const tutorEmail = tutorCards[i].querySelector('p').innerText.toLowerCase(); // Adjust index if necessary
+        const tutorSubjects = tutorCards[i].querySelectorAll('p')[1].innerText.toLowerCase(); // Adjust index if necessary
+        const tutorQualifications = tutorCards[i].querySelectorAll('p')[2].innerText.toLowerCase(); // Adjust index if necessary
+
+        // Check if any of the tutor details match the input
+        tutorCards[i].style.display = (
+            tutorName.includes(input) ||
+            tutorEmail.includes(input) ||
+            tutorSubjects.includes(input) ||
+            tutorQualifications.includes(input)
+        ) ? '' : 'none'; // Show/hide the card
+    }
+}
+
 
 // TutorDetails.js
 document.addEventListener('DOMContentLoaded', async function() {
