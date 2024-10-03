@@ -1468,3 +1468,18 @@ textarea {
     margin-bottom: 10px;
     color: #333;
 }
+
+.stars {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.star {
+    font-size: 24px;
+    color: #ccc;
+}
+
+.star.filled {
+    color: gold;
+}

@@ -41,7 +41,7 @@ document.getElementById('submit-feedback').addEventListener('click', () => {
     // Hide the notification after 3 seconds
     setTimeout(() => {
         successMessage.classList.remove('show');
-    }, 5000);
+    }, 2000);
 
     // Clear the form after submission
     document.getElementById('comments').value = '';
