@@ -2,17 +2,19 @@ import mongoose from'mongoose';
 
 const FeedbackSchema = new mongoose.Schema({
     session: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Session',
         required: true
-    },
+    },    
     rating:{
         type: Number,
         required: [true, "Please give a rating"]
     },
-    comment:{
+    comment: {
         type: String,
-        required: [true, "Please enter your feedback"]
-    },
+        required: [true, "Please enter your feedback"],
+        maxlength: 1000 
+    },    
     subject: {
         type: String,
         required: [true, "Please specify the subject"],
