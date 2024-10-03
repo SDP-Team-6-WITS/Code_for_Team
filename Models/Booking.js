@@ -34,9 +34,15 @@ const BookingSchema = new mongoose.Schema({
     type: Number, 
     required: [true, "Please specify the duration of the session"],
   },
+  meetingType: {
+    type: String, 
+    enum: ['In-person', 'Online', 'Individual'],
+    default: 'In-person',
+  },
+  
   status: {
     type: String,
-    enum: ['Scheduled', 'Confirmed', 'Cancelled', 'Completed'],
+    enum: ['Scheduled','Confirmed', 'Cancelled', 'Completed'],
     default: 'Scheduled',
   },
   cancellationReason: {

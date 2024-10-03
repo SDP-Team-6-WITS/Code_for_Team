@@ -1,4 +1,4 @@
-// Toggle visibility of cancellation reason field
+// Handle cancellation reason visibility based on status
 document.getElementById('status').addEventListener('change', function() {
     const status = this.value;
     const cancellationReasonContainer = document.getElementById('cancellationReasonContainer');
@@ -11,7 +11,7 @@ document.getElementById('status').addEventListener('change', function() {
     }
 });
 
-// Fetch the tutors from the database
+// Function to fetch tutors from the database
 const fetchTutors = async (url) => {
     try {
         const response = await fetch(url);
@@ -26,10 +26,10 @@ const fetchTutors = async (url) => {
     }
 };
 
-// Render the available tutors into the select dropdown
+// Render available tutors into the select dropdown
 const renderAvailableTutors = (tutors) => {
     const tutorsSelect = document.getElementById('tutor');
-    tutorsSelect.innerHTML = ''; 
+    tutorsSelect.innerHTML = ''; // Clear previous options
 
     const placeholderOption = document.createElement('option');
     placeholderOption.textContent = 'Select a Tutor';
@@ -44,47 +44,125 @@ const renderAvailableTutors = (tutors) => {
     });
 };
 
+// Load tutors and set the selected tutor from localStorage
+// Load tutors and set the selected tutor and the first subject from localStorage
 const loadTutors = async () => {
-    const availableTutors = await fetchTutors('http://localhost:3000/api/users');
-    renderAvailableTutors(availableTutors);
+    const availableTutors = await fetchTutors(`${API_BASE_URL}/users`);
+    const tutorsOnly = availableTutors.filter(user => user.role === 'tutor');
+    renderAvailableTutors(tutorsOnly);
+
+    // Get the selected tutor from localStorage
+    const selectedTutor = JSON.parse(localStorage.getItem('selectedTutor'));
+
+    if (selectedTutor) {
+        const tutorSelect = document.getElementById('tutor');
+        for (let option of tutorSelect.options) {
+            if (option.value === selectedTutor._id) {
+                option.selected = true; // Set the correct option as selected
+                break;
+            }
+        }
+
+        // Populate the subject dropdown with the selected tutor's subjects
+        const subjectSelect = document.getElementById('subject');
+        subjectSelect.innerHTML = ''; // Clear previous options
+
+        const placeholderOption = document.createElement('option');
+        placeholderOption.textContent = 'Select a Subject ';
+        placeholderOption.value = '';
+        subjectSelect.appendChild(placeholderOption);
+
+        selectedTutor.subjects.forEach((subject, index) => {
+            const subjectOption = document.createElement('option');
+            subjectOption.textContent = subject; // Assuming the subjects are strings
+            subjectOption.value = subject; 
+            subjectSelect.appendChild(subjectOption);
+
+            // Preselect the first subject
+            if (index === 0) {
+                subjectOption.selected = true; // Set the first subject as selected
+            }
+        });
+    }
 };
 
-document.addEventListener('DOMContentLoaded', loadTutors);
 
-//Booking a schedule
-document.addEventListener('DOMContentLoaded', () => {
+
+document.getElementById('tutor').addEventListener('change', async function () {
+    const selectedTutorId = this.value;
+    const availableTutors = await fetchTutors(`${API_BASE_URL}/users`);
+    const selectedTutor = availableTutors.find(user => user._id === selectedTutorId);
+
+    const subjectSelect = document.getElementById('subject');
+    subjectSelect.innerHTML = ''; // Clear previous options
+
+    const placeholderOption = document.createElement('option');
+    placeholderOption.textContent = 'Select a Subject ';
+    placeholderOption.value = '';
+    subjectSelect.appendChild(placeholderOption);
+
+    if (selectedTutor) {
+        selectedTutor.subjects.forEach(subject => {
+            const subjectOption = document.createElement('option');
+            subjectOption.textContent = subject; // Assuming the subjects are strings
+            subjectOption.value = subject;
+            subjectSelect.appendChild(subjectOption);
+        });
+    }
+});
+
+function askToCheckBusSchedule() {
+    Swal.fire({
+        title: 'Want to Check the Bus Schedule?',
+        text: 'Would you like to see the bus schedule for your area?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+        confirmButtonColor: '#007bff',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Redirect to the bus schedule page
+            window.location.href = './bus-schedule.html';
+        }
+    });
+}
+
+// Handle form submission for booking
+document.addEventListener('DOMContentLoaded', async () => {
     // Load tutors on page load
-    loadTutors();
+    await loadTutors();
 
-    // Handle form submission
     const bookingForm = document.getElementById('bookingForm');
 
     bookingForm.addEventListener('submit', async function (event) {
         event.preventDefault(); // Prevent default form submission
 
         // Gather form data
-        const student = "66d3c6bea7133bbc3a897ec1";
+        const student = localStorage.getItem('userId'); 
         const tutor = document.getElementById('tutor').value;
-        const subject=document.getElementById('subject').value;
+        const subject = document.getElementById('subject').value;
         const sessionDate = document.getElementById('sessionDate').value;
         const sessionTime = document.getElementById('sessionTime').value;
         const duration = document.getElementById('duration').value;
         const status = document.getElementById('status').value;
+        const meetingType = document.getElementById('meetingtype').value;
 
         // Prepare booking data to match the format expected by the database
         const bookingData = {
             student: student,
             tutor: tutor,
-            subject:subject,
+            subject: subject,
             sessionDate: sessionDate,
             sessionTime: sessionTime,
-            duration: parseInt(duration) * 60, // Assuming you want duration in minutes
-            status: status
+            duration: parseInt(duration) * 60, // Convert duration to seconds
+            status: status,
+            meetingType: meetingType
         };
 
         try {
             // Send POST request to the booking API
-            const response = await fetch('http://localhost:3000/api/bookings', {
+            const response = await fetch(`${API_BASE_URL}/bookings`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -93,15 +171,27 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.ok) {
-                // Handle success
                 const responseData = await response.json();
-                alert('Booking created successfully!');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Booking Created',
+                    text: 'Your booking was created successfully!',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#007bff',
+                    timer: 5000, // Auto-close after 3 seconds (optional)
+                    timerProgressBar: true, // Progress bar for auto-close (optional)
+                }).then((result) => {
+                    // After the user clicks 'OK', show the next prompt
+                    if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+                        askToCheckBusSchedule();
+                    }
+                });          
                 console.log('Booking data:', responseData);
-
-                // Optionally, reset the form after submission
                 bookingForm.reset();
+                localStorage.removeItem('bookingTutor');
+                localStorage.removeItem('selectedSubject');
+                localStorage.removeItem('selectedTutor');
             } else {
-                // Handle errors
                 const errorData = await response.json();
                 alert('Error creating booking: ' + errorData.message);
             }

@@ -9,18 +9,14 @@ export const createBooking = async (payload) => {
 
     
     const studentNotification = new Notification({
-    message: `Booking confirmed for ${savedBooking.sessionDate} at ${savedBooking.sessionTime}`,
+    message: `${savedBooking.meetingType} booking confirmed for ${savedBooking.sessionDate} at ${savedBooking.sessionTime} `,
     user: savedBooking.student, 
   });
   await studentNotification.save();
   
   
     const tutorNotification = new Notification({
-<<<<<<< Updated upstream
-    message: `You have a new booking with ${savedBooking.studentName} on ${savedBooking.sessionDate} at ${savedBooking.sessionTime}`,
-=======
-    message: `You have a new ${savedBooking.meetingType} booking with ${savedBooking.student} on ${savedBooking.sessionDate} at ${savedBooking.sessionTime}`,
->>>>>>> Stashed changes
+    message: `You have a new ${savedBooking.meetingType} booking with ${savedBooking.studentName} on ${savedBooking.sessionDate} at ${savedBooking.sessionTime}`,
     user: savedBooking.tutor, 
   });
   await tutorNotification.save();
@@ -126,8 +122,8 @@ export const deleteBookingById = async (id) => {
 
 export const getBookingByTutor = async (id) => {
   try {
-    const bookings = await Booking.find({tutor:id});
-    if (!bookings) {
+    const bookings = await Booking.find({tutor:id}).populate('student');;
+    if (!bookings) { 
       throw new Error('Bookings not found');
     }
     return bookings;

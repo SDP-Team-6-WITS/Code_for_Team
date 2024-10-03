@@ -26,14 +26,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const displaySessions = (sessions) => {
             sessions.forEach(session => {
-                const sessionsElement = document.createElement('div');
+                const sessionsElement = document.createElement('form');
                 sessionsElement.classList.add('session-highlighted');
                 sessionsElement.innerHTML = `
                     <h3>Session:${session._id}</h3>
-                    <div class="date">${(session.sessionDate).slice(0, 10)}</div>
+                    <lable for="sessionDate">Date: </lable>
+                    <input id="sessionDate" class="date" type="date" value="${(session.sessionDate).slice(0, 10)}"></input>
                     <div class="info">
                         <h4>${session.subject}</h4>
-                        <p>${session.sessionTime} | Student: ${session.student}</p>
+                        <lable for="sessionTime">Time: </lable>
+                        <input id="sessionTime" type="time" value="${session.sessionTime}"></input>
+                        <p>Student: ${session.student.fname + ' ' + session.student.lname}</p>
                         
                     </div>
                     
@@ -56,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         completedSessions.appendChild(sessionsElement);
                     }
                     else if(session.status == "Cancelled"){
-                        sessionsElement.innerHTML += `<p>${session.cancellationReason}</p>`;
+                        sessionsElement.innerHTML += `<p>Cancellation Reason: ${session.cancellationReason}</p>`;
                         sessionsElement.innerHTML += `<button class="delete-btn" onclick="deleteBooking(this)">Delete</button>`;
                         cancelledSessions.appendChild(sessionsElement);
                     }
@@ -143,5 +146,5 @@ function cancelBooking(button) {
         });
 
         //reload the page
-        //location.reload();
+        location.reload();
 }

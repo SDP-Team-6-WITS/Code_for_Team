@@ -1,5 +1,5 @@
 import express from 'express';
-import User from '../../Models/User.js'; 
+import Availability from '../../Models/Availability.js'; 
 import {
   getAvailability,
   changeAvailability,
@@ -12,7 +12,7 @@ const router = express.Router();
 // Fetch all tutors with their availability
 router.get('/', async (req, res) => {
   try {
-    const tutors = await User.find({ role: 'tutor' }).populate('availability');
+    const tutors = await Availability.find();
     res.status(200).json(tutors);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching tutors', error: error.message });

@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
         };
 
         try {
-            const response = await fetch('http://localhost:3000/api/resources', {
+            const response = await fetch(`${API_BASE_URL}/resources`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`, 
@@ -35,15 +35,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
             if (response.ok) {
                 const data = await response.json();
-                alert('URL submitted successfully!');
+                 Swal.fire({
+                    icon: 'success',
+                    title: 'URL submitted successfully!',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#007bff',
+                    timer: 5000, // Auto-close after 3 seconds (optional)
+                    timerProgressBar: true, // Progress bar for auto-close (optional)
+                }); 
                 console.log('New resource created:', data);
             } else {
                 const errorData = await response.json();
-                alert('Error submitting URL: ' + errorData.message);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Error submitting URL',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#007bff',
+                    timer: 5000, // Auto-close after 3 seconds (optional)
+                    timerProgressBar: true, // Progress bar for auto-close (optional)
+                }); 
             }
         } catch (error) {
             console.error('Error submitting URL:', error);
-            alert('An error occurred while submitting the URL.');
         }
     });
 });
@@ -69,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append('uploadedBy', userId); // Use the actual user ID
 
         try {
-            const response = await fetch('http://localhost:3000/api/resourcesfile', {
+            const response = await fetch(`${API_BASE_URL}/resourcesfile`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`, 
@@ -79,15 +92,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (response.ok) {
                 const data = await response.json();
-                alert('DOC submitted successfully!');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'File submitted successfully!',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#007bff',
+                    timer: 5000, // Auto-close after 3 seconds (optional)
+                    timerProgressBar: true, // Progress bar for auto-close (optional)
+                }); 
                 console.log('New resource created:', data);
             } else {
                 const errorData = await response.json();
-                alert('Error submitting DOC: ' + errorData.message);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Error submitting File',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#007bff',
+                    timer: 5000, // Auto-close after 3 seconds (optional)
+                    timerProgressBar: true, // Progress bar for auto-close (optional)
+                }); 
             }
         } catch (error) {
             console.error('Error submitting DOC:', error);
-            alert('An error occurred while submitting the DOC.');
         }
     });
 });
@@ -111,27 +137,61 @@ document.addEventListener("DOMContentLoaded", async function () {
     };
 
     // Function to delete a resource or file
-    const deleteResource = async (id, type) => {
-        const url = type === 'resource' ? `http://localhost:3000/api/resources/${id}` : `http://localhost:3000/api/resourcesfile/${id}`;
+    // Function to delete a resource or file
+const deleteResource = async (id, type) => {
+    // Show confirmation dialog
+    const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel',
+    });
+
+    // If the user clicked "Yes"
+    if (result.isConfirmed) {
+        const url = type === 'resource' ? `${API_BASE_URL}/resources/${id}` : `${API_BASE_URL}/resourcesfile/${id}`;
         try {
             const response = await fetch(url, {
                 method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                },
             });
 
             if (!response.ok) {
                 throw new Error('Failed to delete the resource');
             }
 
-            alert('Resource deleted successfully!');
+            Swal.fire({
+                icon: 'success',
+                title: 'Resource deleted successfully!',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#007bff',
+                timer: 5000, // Auto-close after 5 seconds (optional)
+                timerProgressBar: true, // Progress bar for auto-close (optional)
+            });
             // Refresh the list after deletion
-            const resources = await fetchResources('http://localhost:3000/api/resources');
-            const files = await fetchResources('http://localhost:3000/api/resourcesfile');
+            const resources = await fetchResources(`${API_BASE_URL}/resources`);
+            const files = await fetchResources(`${API_BASE_URL}/resourcesfile`);
             renderResources(resources, files);
         } catch (error) {
             console.error('Error deleting resource:', error);
-            alert('An error occurred while deleting the resource.');
+            Swal.fire({
+                icon: 'error',
+                title: 'An error occurred while deleting the resource.',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#007bff',
+                timer: 5000, // Auto-close after 5 seconds (optional)
+                timerProgressBar: true, // Progress bar for auto-close (optional)
+            });
         }
-    };
+    }
+};
+
 
     // Function to render resources into the DOM
     const renderResources = (resources, files) => {
@@ -163,7 +223,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             if (file.uploadedBy === userId) {
                 const fileItem = document.createElement('li');
                 const fileLink = document.createElement('a');
-                fileLink.href = `http://localhost:3000/api/resourcesfile/${file._id}`; // Adjust URL as needed for file access
+                fileLink.href = `${API_BASE_URL}/resourcesfile/${file._id}`; // Adjust URL as needed for file access
                 fileLink.textContent = `${file.file.originalName}`;
                 
                 // Create delete button
@@ -180,7 +240,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     };
 
     // Fetch resources and files on page load
-    const resources = await fetchResources('http://localhost:3000/api/resources');
-    const files = await fetchResources('http://localhost:3000/api/resourcesfile');
+    const resources = await fetchResources(`${API_BASE_URL}/resources`);
+    const files = await fetchResources(`${API_BASE_URL}/resourcesfile`);
     renderResources(resources, files);
 });

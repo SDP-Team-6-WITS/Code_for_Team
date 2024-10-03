@@ -1,24 +1,19 @@
-
 // Redirect to Google OAuth route when Google login button is clicked
-<<<<<<< Updated upstream
-=======
 const API_BASE_URL = 'http://localhost:3000/api';
 
 
->>>>>>> Stashed changes
 function handleGoogleLogin() {
     window.location.href = '/auth/google';
 }
 
 document.addEventListener('DOMContentLoaded', handleAuthRedirect);
 
-
 function handleAuthRedirect() {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
     const userId = urlParams.get('userId');
+
     
-   
     if (token && userId) {
         localStorage.setItem('token', token);
         localStorage.setItem('userId', userId);
@@ -47,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             try {
-                const response = await fetch('http://localhost:3000/api/users/login', {
+                const response = await fetch(`${API_BASE_URL}/users/login`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -59,21 +54,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     const data = await response.json();
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('userId', data.userId);
-                    alert('Login successful!');
-                    if(data.role =='tutor'){
-                        window.location.href = './views/tutor_dashboard.html';
-                    }
-                    else{
-                        console.log(data);
-                    window.location.href = './dashboard.html';
-                    }
+                    localStorage.setItem('role', data.role); // Store role in localStorage
+                    document.getElementById("error-msg").innerHTML=`Loading...`
+                    document.getElementById("error-msg").style.color = 'white';  // Change text color to white
+                    
+                    // Redirect based on role
+                    if (data.role === 'tutor') {
+                        window.location.href = './views/tutor_dashboard.html'; // Redirect to tutor's dashboard
+                    } else if (data.role === 'student') {
+                        window.location.href = './dashboard.html'; // Redirect to student's dashboard
+                    } 
                 } else {
                     const errorData = await response.json();
-                    alert('Error logging in: ' + errorData.message);
+                   document.getElementById("error-msg").innerHTML=`Error logging in`
                 }
             } catch (error) {
                 console.error('Error logging in:', error);
-                alert('An error occurred while logging in.');
+                document.getElementById("error-msg").innerHTML=`Error logging in`
             }
         });
     } 
@@ -86,6 +83,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Retrieve user ID and token from localStorage (already stored on login)
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
+    console.log(token);
+    console.log(userId);
+    
 
     if (!token || !userId) {
         console.error('No token or user ID found, redirect to login');
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
-        const response = await fetch(`http://localhost:3000/api/users/${userId}`, {
+        const response = await fetch(`${API_BASE_URL}/users/${userId}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const { fname, lname } = user;
 
             // Fetch profile picture as a binary stream
-            const imageResponse = await fetch(`http://localhost:3000/api/users/${userId}/profile-picture`, {
+            const imageResponse = await fetch(`${API_BASE_URL}/users/${userId}/profile-picture`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             profileNameElement.textContent = `${fname} ${lname}`;
         } else {
             console.error('Failed to fetch user data');
-            window.location.href = './login.html'; // Redirect to login if user data fetch fails
+            // Redirect to login if user data fetch fails
         }
     } catch (error) {
         console.error('Error fetching user data:', error);

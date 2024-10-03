@@ -52,7 +52,7 @@ class AppSidebar extends HTMLElement {
         <ul>
           <li><a href="tutor_dashboard.html"><img src="../Icons/dashboard-svgrepo-com.svg" alt="tutor_dashboard"> <span>Dashboard</span></a></li>
           <li><a href="availability.html"><img src="../Icons/availability.svg" alt="availability"> <span>Availability</span></a></li>
-          <li><a href="sessions.html"><img src="../Icons/session.svg" alt="session"> <span>Sessions</span></a></li>
+          <li><a href="sessions.html"><img src="../Icons/sessions.svg" alt="session"> <span>Sessions</span></a></li>
           <li><a href="resources.html"><img src="../Icons/resources-svgrepo-com.svg" alt="Resources"> <span>Resources</span></a></li>
           <li><a href="reviews.html"><img src="../Icons/review.svg" alt="review"> <span>Reviews</span></a></li>
           <li><a href="settings.html"><img src="../Icons/settings.svg" alt="Safety"> <span>Settings</span></a></li>

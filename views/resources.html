@@ -8,49 +8,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<<<<<<< Updated upstream
-    <div class="header">
-        <img class="logo" src="../Icons/logo.svg" alt="">
-        <input class="search" type="text" placeholder="Search">
-        <ul>
-            <li><a href="#"><img src="../Icons/notifications.svg" alt="ping"></a></li>
-            <li><a href="#"><img src="../Icons/chat.svg" alt="ping"></a></li>
-        </ul>
-        <div class="dark-mode-toggle">
-            <label for="dark-mode-switch" class="switch">
-                <input type="checkbox" id="dark-mode-switch">
-                <span class="slider round"></span>
-            </label>
-        </div>
-        <ul class="account-link">
-            <a href="#" id="profile-link">
-                <img id="profile-picture" src="../Icons/profile2.jpg" alt="Profile Picture">
-                <span id="profile-name">Default Name</span>
-            </a>
-        </ul>
-    </div>
-    <div id="sidebar" class="sidebar">
-        <button id="toggleButton" class="toggle-button"><img src="../Icons/arrow-left-svgrepo-com.svg" alt=""></button>
-        <ul>
-            <li><a href="tutor_dashboard.html"><span>Dashboard</span></a></li>
-            <li><a href="profile.html"><span>Profile</span></a></li>
-            <li><a href="availability.html"><span>Availability</span></a></li>
-            <li><a href="sessions.html"><span>Sessions</span></a></li>
-            <li><a href="resources.html"><span>Resources</span></a></li>
-            <li><a href="reviews.html" id="reviews"><span>Reviews</span></a></li>
-            <li><a href="#" onclick="handleLogout()"><span>Logout</span></a></li>
-        </ul>
-    </div>
-
-    <div id="main-content" class="main-content">
-=======
     <!-- Sidebar Section -->
 
     <app-header></app-header>
     <app-sidebar></app-sidebar>
     <!-- Main Content Section -->
     <div class="main-content">
->>>>>>> Stashed changes
         <h2 class="title-resources">Resource Sharing</h2>
         <div class="resource-sharing-section">
             <h2>Share Study Materials and Notes</h2>
@@ -78,27 +41,6 @@
     </div>
     
 
-<<<<<<< Updated upstream
-    <script>
-        // Example JavaScript to handle form submission
-        document.getElementById('resource-file').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission
-            
-            // You can handle the file upload here with JavaScript if needed
-            alert('Resource submitted successfully!');
-            // Optionally, you can reset the form or perform other actions here
-            this.reset();
-        });
-    </script>
-
-    <script>
-        function handleLogout() {
-            localStorage.removeItem('token');
-            localStorage.removeItem('userId');
-            window.location.href = '../login.html';
-        }
-    </script>
-=======
     <!-- Ensure script tags are at the bottom of the body -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../script.js"></script>
@@ -106,6 +48,5 @@
     <script src="../Client-servers/resource-sharing.js"></script>
     <script src="../Client-servers/notifications.js"></script>
     <script src="./theaderFooter.js"></script>
->>>>>>> Stashed changes
 </body>
 </html>

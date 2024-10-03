@@ -5,8 +5,8 @@ import {
   getBookingById,
   modifyBooking,
   cancelBooking,
-  deleteBookingById, 
-  getBookingByTutor
+  deleteBookingById,
+  getBookingByTutor, 
 } from '../../Controllers/Booking_Controller/BookingC.js';
 
 const router = express.Router();
