@@ -26,7 +26,9 @@
                 const events = await response.json();
 
                 events.forEach(event => {
-                    const studentNumber = booking.USER_ID.split('@')[0];
+
+
+                    const studentNumber = event.USER_ID.split('@')[0];
                     const eventElement = document.createElement('div');
                     eventElement.innerHTML = `
                         <h3>${event.EVENT_NAME}</h3>
