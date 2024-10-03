@@ -20,15 +20,7 @@ const availabilitySchema = new mongoose.Schema({
                 type: String, // Time in HH:mm format
             }
         }]
-    }],
-    startDate: {
-        type: Date,
-        required: true
-    },
-    endDate: {
-        type: Date,
-        required: true
-    }
+    }]
 });
 
 
