@@ -8,6 +8,7 @@
     <script src="./sessions.js"></script>
 </head>
 <body>
+<<<<<<< Updated upstream
     <div class="header">
         <img class="logo" src="../Icons/logo.svg" alt="">
         <input class="search" type="text" placeholder="Search">
@@ -42,6 +43,12 @@
         </ul>
     </div>
     <div id = "content" class="main-content">
+=======
+   
+    <app-header></app-header>
+    <app-sidebar></app-sidebar>
+    <div class="main-content">
+>>>>>>> Stashed changes
         <h1>YOUR SESSIONS WILL APPEAR HERE</h1>
         <div id = "pending-list">
             <h2>Pending requests</h2>
@@ -56,6 +63,7 @@
             <h2>Cancelled Sessions</h2>
         </div>
     </div>
+<<<<<<< Updated upstream
     <script>
         function handleLogout() {
             localStorage.removeItem('token');
@@ -63,5 +71,11 @@
             window.location.href = '../login.html';
         }
     </script>
+=======
+
+    <script src="./theaderFooter.js"></script>
+    <script src="../Client-servers/login.js"></script>
+    <script src="../TClient-servers/sessions.js"></script>
+>>>>>>> Stashed changes
 </body>
 </html>

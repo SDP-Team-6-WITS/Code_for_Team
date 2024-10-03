@@ -16,7 +16,11 @@ export const createBooking = async (payload) => {
   
   
     const tutorNotification = new Notification({
+<<<<<<< Updated upstream
     message: `You have a new booking with ${savedBooking.studentName} on ${savedBooking.sessionDate} at ${savedBooking.sessionTime}`,
+=======
+    message: `You have a new ${savedBooking.meetingType} booking with ${savedBooking.student} on ${savedBooking.sessionDate} at ${savedBooking.sessionTime}`,
+>>>>>>> Stashed changes
     user: savedBooking.tutor, 
   });
   await tutorNotification.save();

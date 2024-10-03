@@ -1,5 +1,11 @@
 
 // Redirect to Google OAuth route when Google login button is clicked
+<<<<<<< Updated upstream
+=======
+const API_BASE_URL = 'http://localhost:3000/api';
+
+
+>>>>>>> Stashed changes
 function handleGoogleLogin() {
     window.location.href = '/auth/google';
 }

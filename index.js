@@ -10,6 +10,7 @@ import resourcefileRoutes from './Routes/Resourcefile_Routes/ResourcefileR.js'
 import bookingRoutes from './Routes/Booking_Routes/BookingR.js';
 import notificationRoutes from './Routes/Notification_Routes/NotificationR.js';
 import virtualtutoringRoutes from './Routes/VirtualTutoring_Routes/VirtualTutoringR.js';
+import availabilityRoutes from './Routes/Availability_Routes/AvailabilityR.js'
 import './Authentication/passport.js';
 import { authenticateToken} from './tokenmiddleware.js'; 
 import feedbackRoutes from './Routes/Feedback_Routes/FeedbackR.js';
@@ -48,8 +49,12 @@ app.use('/api/bookings', bookingRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/virtualtutoring', virtualtutoringRoutes);
 app.use('/api/resourcesfile', resourcefileRoutes);
+<<<<<<< Updated upstream
 app.use('/api/feedback', feedbackRoutes);
 app.use('/api/availability', availability);
+=======
+app.use('/api/availability', availabilityRoutes);
+>>>>>>> Stashed changes
 
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
@@ -64,7 +69,12 @@ app.get('/',  (req, res) => {
   res.sendFile(path.join(__dirname, 'dashboard.html'));
 });
 
+<<<<<<< Updated upstream
 app.get('/tutor_dashboard.html', (req, res) => {
+=======
+
+app.get('/', (req, res) => {
+>>>>>>> Stashed changes
   res.sendFile(path.join(__dirname, 'views', 'tutor_dashboard.html'));
 });
 
