@@ -5,7 +5,8 @@ import {
   getBookingById,
   modifyBooking,
   cancelBooking,
-  deleteBookingById, 
+  deleteBookingById,
+  getBookingByTutor, 
 } from '../../Controllers/Booking_Controller/BookingC.js';
 
 const router = express.Router();
@@ -91,6 +92,20 @@ router.delete('/:id', async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ message: 'Error deleting booking', error: error.message });
+  }
+});
+
+router.get('/tutor/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const booking = await getBookingByTutor(id);
+    if (booking) {
+      res.status(200).json(booking); 
+    } else {
+      res.status(404).json({ message: 'Bookings not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching booking', error: error.message });
   }
 });
 
